@@ -1,4 +1,5 @@
-# Build and Run - page describes the build and run processes.  Building the kernel using the cross compiler and running bochs with the resulting floppy image.  
+= Page Description =
+Describes the build and run processes.  Building the kernel using the cross compiler and running bochs with the resulting floppy image.  
 
 = Build =
 
