@@ -1,0 +1,2 @@
+void spawn_thread();
+
