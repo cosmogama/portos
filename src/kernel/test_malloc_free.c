@@ -528,7 +528,7 @@ void test_malloc_free_1_3_4(){
 //********************************************************
 // SANITY TESTING
 //********************************************************
-/*
+
 void test_malloc_free_2_1_1(){
 	void * allocated_space = (void *) 0xBADCAFE;
 	allocated_space = kmalloc( 0 );
@@ -560,7 +560,6 @@ void test_malloc_free_3_1_1(){
 	assert( *allocated_space == 389 );
 	kfree(allocated_space);
 }
-*/
 
 //
 void test_malloc_free(){
@@ -580,19 +579,10 @@ void test_malloc_free(){
 	test_malloc_free_1_3_2();
 	test_malloc_free_1_3_3();
 	test_malloc_free_1_3_4();
-	//test_malloc_free_2_1_1();
-	//test_malloc_free_1_1_6();
-	//test_malloc_free_1_1_7();
-	/*test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();
-	test_malloc_free_1_1_1();	*/
+	test_malloc_free_2_1_1();
+	test_malloc_free_2_1_2();
+	test_malloc_free_2_1_3();
+	test_malloc_free_2_1_4();
+	test_malloc_free_3_1_1();
 }
 
