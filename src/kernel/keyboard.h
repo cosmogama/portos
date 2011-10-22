@@ -1,3 +1,6 @@
+#ifndef _KEYBOARD_H
+#define _KEYBOARD_H
+
 #include "types.h"
 
 /***
@@ -91,4 +94,4 @@ typedef struct KEY{
 // ***************************************************
 void decodeKey( KEY * key , uint8 scancode );
 
-
+#endif

@@ -1,5 +1,5 @@
-#ifndef __DESCRIPTORS_H
-#define __DESCRIPTORS_H
+#ifndef _IDT_H
+#define _IDT_H
 
 #include "types.h"
 #include "interrupts.h"

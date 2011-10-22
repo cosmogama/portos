@@ -28,30 +28,53 @@ void * kmalloc( uint32 bytes_reqd ){
 	ram_list * allocated_list = get_allocated_list();
 	ram_list * free_list = get_free_list();
 	ram_list * unused_list = get_unused_list();
-	return kmalloc_internal( bytes_reqd , allocated_list, free_list, unused_list );
+	void * space_requested = NULL;
+
+	int ret_val = kmalloc_internal( bytes_reqd , &space_requested , allocated_list, free_list, unused_list );
+	
+	if( ret_val == 1 )
+		printf("WARNING: kmalloc is requesting zero bytes. ",NULL);
+	if( ret_val == -1 )
+		printf("ERROR: not enough RAM to fill kmalloc request. ",NULL);
+
+	return space_requested;
 }
 
 void kfree( void * ptr ){
 	ram_list * allocated_list = get_allocated_list();
 	ram_list * free_list = get_free_list();
 	ram_list * unused_list = get_unused_list();
-	kfree_internal( ptr , allocated_list, free_list, unused_list );
+
+	int ret_val = kfree_internal( ptr , allocated_list, free_list, unused_list );
+
+	if( ret_val == -1 )
+		printf("ERROR: trying to free NULL pointer. ",NULL);
+	if( ret_val == -2 )
+		printf("ERROR: trying to free unallocated pointer. ",NULL);
 }
 
 /*
 *	function: malloc.
-* parameters: uint32-bytes needed to allocate on the heap.
-* return: void*-the pointer to the newly allocated space on the heap.
+* parameters: bytes_reqd=size of space requested, requested_space=a pointer
+*    to the requested space after allocation, allocated_list=the allocated 
+*    list structure maintained by kmalloc_data, free_list=the free 
+*    list structure maintained by kmalloc_data, unused_list=the unused 
+*    list structure maintained by kmalloc_data
+* return: 0 for success, 1 for requesting zero bytes, -1 if there is not
+*    enough RAM to fill request.
 * description: The heap blocks are already implicitly allocated and ready
 *   to distribute.  I have the start and end address of free memory.  I 
 *   just need to give the requestor the address of the beginning of the
 *   next address of free memory.
 * algorithm: 
 */
-void * kmalloc_internal( uint32 bytes_reqd , ram_list * allocated_list , ram_list * free_list , ram_list * unused_list ){
+int kmalloc_internal( uint32 bytes_reqd , void ** requested_space , ram_list * allocated_list , ram_list * free_list , ram_list * unused_list ){
 
 	// if process is asking for zero bytes, return immediately
-	if( bytes_reqd == 0 ) return NULL;
+	if( bytes_reqd == 0 ){
+		*requested_space = NULL;
+		return 1;
+	}
 
 	// bytes required must be greater than or equal to this constant
 	if( bytes_reqd < MIN_NUM_BYTES_TO_ALLOCATE ){
@@ -66,33 +89,42 @@ void * kmalloc_internal( uint32 bytes_reqd , ram_list * allocated_list , ram_lis
 	}
 	
 	// find free space
-	ram_node * node = find_most_suitable_free_ram_node( bytes_reqd , unused_list , free_list );
-	printfuu("found suitable RAM space %u %u\n",node->start,node->end);
-	if( node == NULL ) return NULL;
+	ram_node * node = find_most_suitable_free_ram_node( bytes_reqd , free_list , unused_list );
+	if( node == NULL ){
+		*requested_space = NULL;
+		return -1;
+	}
+	//printfuu("found suitable RAM space %u %u\n",node->start,node->end);
 
 	// allocate free node's space
 	insert_allocated_ram_node( node , allocated_list );
 
 	// give process address to start of newly allocated memory space
-	return (void *) node->start;
+	*requested_space = (void *) node->start;
+
+	return 0;
 }
 
 // at the moment, a process can free another process' RAM
 // bc memory is flat, no virtual translations
-void kfree_internal( void * ptr , ram_list * allocated_list , ram_list * free_list , ram_list * unused_list ){
+// return values {0 for success, -1 for trying to free NULL ptr, -2 for trying to free 
+//    unallocated ptr}
+int kfree_internal( void * ptr , ram_list * allocated_list , ram_list * free_list , ram_list * unused_list ){
 
 	// can't free NULL ptr
-	if( ptr == NULL ) return;
+	if( ptr == NULL ) return -1;
 
 	// find allocated node to be freed
 	ram_node * allocated_ram_node = remove_allocated_ram_node( ptr , allocated_list );
 
 	// if allocated list is empty or process is trying to free RAM that isn't allocated
 	// then return immediately
-	if( allocated_ram_node == NULL ) return;
+	if( allocated_ram_node == NULL ) return -2;
 
 	// free previously allocated node
   insert_free_ram_node( allocated_ram_node , free_list , unused_list );
+	
+	return 0;
 }
 
 //*************************************************************************

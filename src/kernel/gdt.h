@@ -7,8 +7,8 @@
 **			    	  R Karthick    ( rkarthick@gmx.net )
 */
 
-#ifndef GDT_H
-#define GDT_H
+#ifndef _GDT_H
+#define _GDT_H
 
 #include "types.h"
 

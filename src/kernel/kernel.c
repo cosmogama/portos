@@ -12,7 +12,6 @@
 #include "PIC.h"
 #include "monitor.h"
 #include "IO.h"
-#include "kmalloc.h"
 #include "kmalloc_data.h"
 #include "process.h"
 #include "thread.h"
@@ -56,15 +55,13 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
 
 		// initialize kernel environment
 		clearMonitor();
-		//init_main_mem( mbd_addr );		
-		mbd_addr = NULL;
+		init_main_mem( mbd_addr );		
 		setupGDT();
 		PIC_initialize();
 		init_interrupts();	
 
 		// tests
-		//test_sanity();
-		test_malloc_free();
+		run_tests();
 
 		// initialize user environment
 		setupUserSpace();

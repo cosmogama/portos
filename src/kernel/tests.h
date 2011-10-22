@@ -1,7 +1,6 @@
-#ifndef _TESTS
-#define _TESTS
+#ifndef _TESTS_H
+#define _TESTS_H
 
-#include "test_sanity.h"
-#include "test_malloc_free.h"
+void run_tests();
 
 #endif
