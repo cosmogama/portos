@@ -85,25 +85,19 @@ void kfree( void * ptr , ram_list * allocated_list , ram_list * free_list , ram_
 // RAM LIST HELPER FUNCTIONS
 //*************************************************************************
 
-int some_foo(int y){
-	int x = 9;
-	return x * y;
-}
-
 //
 ram_node * find_most_suitable_free_ram_node( uint32 bytes_reqd , ram_list * free_list , ram_list * unused_list ){
 	ram_node * next_node = free_list->head;
 	ram_node * prev_node = NULL;
+	ram_node * next_nodes_replacement = NULL;
 	long diff = 0;
-	//int i=0;
-	//printf("[find_most_suitable_free_ram_node] dumping first few unused ram nodes",NULL);
-	//for(;i<3;i++) dump_ram_node(&raw_ram_nodes[i]);
-
-	printfu("bytes_reqd=%u\n",bytes_reqd);
 
 	while( next_node != NULL ){
 
-		diff = (next_node->end - next_node->start) - bytes_reqd;
+		// next node's next is next_nodes_replacement
+		next_nodes_replacement = next_node->next;
+
+		diff = (next_node->end - next_node->start + 1) - bytes_reqd;
 
 		// found node with enough RAM to fill request?
 		if( diff >= 0 ){
@@ -112,7 +106,6 @@ ram_node * find_most_suitable_free_ram_node( uint32 bytes_reqd , ram_list * free
 			if( diff != 0 ){
 
 				// splitting...so get a new node to split to
-				printfu("splitting...bytes_reqd=%u\n",bytes_reqd);
 				ram_node * unused_ram_node = ram_list_pop( unused_list );
 				
 				// is unused list empty?
@@ -121,36 +114,30 @@ ram_node * find_most_suitable_free_ram_node( uint32 bytes_reqd , ram_list * free
 					return next_node;
 				}
 
-				// some_foo(12);
-				printfu("after split...bytes_reqd=%u\n",bytes_reqd);
-
 				// add new node to free list
-				printfuu("urn->next=%u nn->next=%u\n",(uint32)unused_ram_node->next,(uint32)next_node->next);
-				printfuu("&urn->next=%u &nn->next=%u\n",(uint32)&(unused_ram_node->next),(uint32)&(next_node->next));
-				printfu("&bytes_reqd=%u\n",(uint32)&(bytes_reqd));
 				unused_ram_node->next = next_node->next;
-				printfu("after connect unused node to next node...bytes_reqd=%u\n",bytes_reqd);
 				free_list->size++;
-
-				// connect prev node to new node
-				if( prev_node != NULL )
-					prev_node->next = unused_ram_node;
-
-				printfu("after connect prev to unused...bytes_reqd=%u\n",bytes_reqd);
 
 				// update new node's address space, new node gets leftover space from split
 				// next node is the exact match for space
 				unused_ram_node->start = next_node->start + bytes_reqd;
 				unused_ram_node->end = next_node->end;
 
-				printfu("after update unused addr fields..bytes_reqd=%u\n",bytes_reqd);
-
 				// update next node's exact address space
-				printfu("bytes_reqd last=%u\n",bytes_reqd);
-				next_node->end = next_node->start + bytes_reqd;
+				next_node->end = next_node->start + bytes_reqd - 1;
+
+				// unused node is next_nodes_replacement
+				next_nodes_replacement = unused_ram_node;
 			}
+			
+			// connect prev_node/free_list to next node's replacement
+			if( prev_node != NULL )
+				prev_node->next = next_nodes_replacement;
+			else
+				free_list->head = next_nodes_replacement;
 	
 			// found exact match or a split created an exact match
+			free_list->size--;
 			return next_node;
 		}
 
@@ -176,7 +163,7 @@ ram_node * find_node_predecessor( uint32 start_addr , ram_list * l ){
 		next_node = next_node->next;
 	
 		// breaks if node should be last node in list
-		if( next_node->next == NULL ) break;
+		if( next_node == NULL ) break;
 
 	// if while loop condition is false, then node should be inserted between prev_node and next_node
 	}
@@ -221,16 +208,7 @@ void insert_free_ram_node( ram_node * new_node , ram_list * free_list , ram_list
 	prev_node->next = new_node;
 
 	// try combining new node with existing adjacent nodes
-	BOOL combined = combine_free_ram_nodes_if_possible( prev_node , new_node , next_node , free_list , unused_list ); 
-
-	// when combining, new_node becomes useless as its RAM gets sucked up by existing adjacent nodes
-	if( !combined ){
-
-		// put new node in the middle of prev and next nodes
-		new_node->next = next_node;		
-		prev_node->next = new_node;
-		free_list->size++;
-	}
+	combine_free_ram_nodes_if_possible( prev_node , new_node , next_node , free_list , unused_list ); 
 }
 
 //
@@ -242,27 +220,34 @@ BOOL combine_free_ram_nodes_if_possible( ram_node * prev_node , ram_node * new_n
 	BOOL combined = FALSE;
 	ram_node * left_node = new_node;
 
+	// connect prev, new, and next to begin with
+	prev_node->next = new_node;
+	new_node->next = next_node;
+	free_list->size++;
+
 	// if prev and new can be combined, new is useless
-  if( prev_node->end + 4 == new_node->start ){
+  if( prev_node->end + 1 == new_node->start ){
+		//printf("combining prev new",NULL);
 		// combine prev and new
 		prev_node->end = new_node->end;
 		// new_node is useless
 		prev_node->next = next_node;
 		// recycle newly unused node
 		ram_list_push( new_node , unused_list );
+		free_list->size--;
+		combined = TRUE;
 		// check whether prev can be combined with next now
 		left_node = prev_node;
-		combined = TRUE;
 	}
 	// if left and next can be combined, next is useless
-	if( left_node->end + 4 == next_node->start ){
+	if( left_node->end + 1 == next_node->start ){
+		//printf("combining left next",NULL);
 		// combine left and next
 		left_node->end = next_node->end;
 		// next is useless
 		left_node->next = next_node->next;
 		// recycle newly unused node
 		ram_list_push( next_node , unused_list );
-		// removed pre-existing node
 		free_list->size--;
 		combined = TRUE;
 	}

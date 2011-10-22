@@ -56,14 +56,15 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
 
 		// initialize kernel environment
 		clearMonitor();
-		init_main_mem( mbd_addr );		
+		//init_main_mem( mbd_addr );		
+		mbd_addr = NULL;
 		setupGDT();
 		PIC_initialize();
 		init_interrupts();	
 
 		// tests
 		//test_sanity();
-		//test_malloc_free();
+		test_malloc_free();
 
 		// initialize user environment
 		setupUserSpace();
