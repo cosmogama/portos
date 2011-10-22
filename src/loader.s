@@ -16,7 +16,7 @@ MultiBootHeader:
    dd CHECKSUM
  
 ; reserve initial kernel stack space
-STACKSIZE equ 0x9000                  ; that's 16k.
+STACKSIZE equ 0x4000                  ; that's 16k.
  
 loader:
    mov esp, stack+STACKSIZE           ; set up the stack

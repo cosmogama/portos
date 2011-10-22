@@ -1,3 +1,6 @@
+#ifndef _TSS_H
+#define _TSS_H
+
 // A struct describing a Task State Segment. taken from James Molloy
 struct tss_entry_struct {
    uint32 prev_tss;   // The previous TSS - if we used hardware task switching this would form a linked list.
@@ -31,3 +34,4 @@ struct tss_entry_struct {
 
 typedef struct tss_entry_struct tss_entry_t; 
 
+#endif
