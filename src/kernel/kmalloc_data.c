@@ -34,11 +34,11 @@ ram_list * get_unused_list(){
 //
 void populate_unused_list(){
 	int i = 0;
-	printf("dumping first few unused ram nodes\n",NULL);
+	//printf("dumping first few unused ram nodes\n",NULL);
 	for( ; i<MAX_RAM_NODES-1; i++ ){
 		raw_ram_nodes[i].next = &raw_ram_nodes[i+1];
-		if( i<4 )
-			dump_ram_node(&raw_ram_nodes[i]);
+		//if( i<4 )
+		//	dump_ram_node(&raw_ram_nodes[i]);
 	}
 	raw_ram_nodes[MAX_RAM_NODES-1].next = NULL;
 	unused_list.head = &raw_ram_nodes[i];
@@ -64,7 +64,7 @@ void init_main_mem( unsigned long mbd_addr ){
 	va_data_t print_args[10];
 	print_args[0].h = mbd->mmap_addr; 	
 	print_args[1].h = mbd->mmap_length; 	
-	printf( "mmap_addr = %h mmap_length = %h\n" , print_args );
+	//printf( "mmap_addr = %h mmap_length = %h\n" , print_args );
 
 	// initialize ram lists
 	ram_list_init( &free_list );
@@ -87,10 +87,10 @@ void init_main_mem( unsigned long mbd_addr ){
 		print_args[1].h = mmap->base_addr_low + mmap->length_low - 1;
 		print_args[2].u = mmap->length_low;
 		print_args[3].u = mmap->type;
-		printf( "base_addr = %h end_addr = %h length = %u type = %u\n" , print_args );
+		//printf( "base_addr = %h end_addr = %h length = %u type = %u\n" , print_args );
 
 		if( mmap->type == FREE_RAM_TYPE ){
-			printf( "adding free RAM chunk\n" , NULL);
+			//printf( "adding free RAM chunk\n" , NULL);
 			ram_node * free_node = ram_list_pop( &unused_list );
 			free_node->start = mmap->base_addr_low;
 			free_node->end = mmap->base_addr_low + mmap->length_low;
@@ -101,7 +101,7 @@ void init_main_mem( unsigned long mbd_addr ){
 
 	print_args[0].u = ram_list_size( &free_list );
 	print_args[1].u = amt_free_ram_available;
-	printf("num free nodes=%u amount of RAM available=%u\n" , print_args );
+	//printf("num free nodes=%u amount of RAM available=%u\n" , print_args );
 }
 
 //************************************************
