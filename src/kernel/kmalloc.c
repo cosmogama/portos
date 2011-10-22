@@ -188,7 +188,7 @@ ram_node * find_node_predecessor( uint32 start_addr , ram_list * l ){
 //
 void insert_allocated_ram_node( ram_node * new_node , ram_list * allocated_list ){
 
-	// first allocated node
+	// allocated list empty?
 	if( allocated_list->head == NULL ){
 		new_node->next = NULL;
 		ram_list_push( new_node , allocated_list );
@@ -196,51 +196,61 @@ void insert_allocated_ram_node( ram_node * new_node , ram_list * allocated_list 
 	}
 
 	ram_node * prev_node = find_node_predecessor( new_node->start , allocated_list );
-	ram_node * next_node = prev_node->next;
+	ram_node * next_node = NULL;
 
-	// add new node in list
+	// insert ram_node
+	if( prev_node != NULL ){
+		next_node = prev_node->next;
+		prev_node->next = new_node;
+	}
+	else{
+		next_node = allocated_list->head;
+		allocated_list->head = new_node;
+	}
+
 	new_node->next = next_node;		
-	prev_node->next = new_node;
 	allocated_list->size++;
 }
 
 //
 void insert_free_ram_node( ram_node * new_node , ram_list * free_list , ram_list * unused_list ){
 
-	// free_list empty?
+	// free list empty?
 	if( free_list->head == NULL ){
 		new_node->next = NULL;
 		ram_list_push( new_node , free_list );
 		return;
 	}
 
-	ram_node * prev_node = find_node_predecessor( new_node->start , free_list );
-	ram_node * next_node = prev_node->next;
+	ram_node * prev_node = find_node_predecessor( new_node->start , free_list );	
+	ram_node * next_node = NULL;
 
-	// insert new node between prev and next
-	new_node->next = next_node;
-	prev_node->next = new_node;
+	// add ram_node
+	if( prev_node != NULL ){
+		next_node = prev_node->next;
+	}
+	else{
+		next_node = free_list->head;
+	}
 
 	// try combining new node with existing adjacent nodes
 	combine_free_ram_nodes_if_possible( prev_node , new_node , next_node , free_list , unused_list ); 
 }
-
-//
-//void insert_unused_ram_node( ram_node * node ){
-//	ram_list_push( &unused_list , node );
-//}
 
 BOOL combine_free_ram_nodes_if_possible( ram_node * prev_node , ram_node * new_node , ram_node * next_node , ram_list * free_list , ram_list * unused_list ){
 	BOOL combined = FALSE;
 	ram_node * left_node = new_node;
 
 	// connect prev, new, and next to begin with
-	prev_node->next = new_node;
+	if( prev_node != NULL ) 
+		prev_node->next = new_node;
+	else
+		free_list->head = new_node;
 	new_node->next = next_node;
 	free_list->size++;
 
 	// if prev and new can be combined, new is useless
-  if( prev_node->end + 1 == new_node->start ){
+  if( prev_node != NULL && prev_node->end + 1 == new_node->start ){
 		//printf("combining prev new",NULL);
 		// combine prev and new
 		prev_node->end = new_node->end;
@@ -254,7 +264,7 @@ BOOL combine_free_ram_nodes_if_possible( ram_node * prev_node , ram_node * new_n
 		left_node = prev_node;
 	}
 	// if left and next can be combined, next is useless
-	if( left_node->end + 1 == next_node->start ){
+	if( next_node != NULL && left_node->end + 1 == next_node->start ){
 		//printf("combining left next",NULL);
 		// combine left and next
 		left_node->end = next_node->end;
@@ -278,11 +288,27 @@ ram_node * remove_allocated_ram_node( void * ram_node_start , ram_list * allocat
 	if( allocated_list->head == NULL ) return NULL;
 
 	ram_node * prev_node = find_node_predecessor( (uint32) ram_node_start , allocated_list );
-	ram_node * next_node = prev_node->next;
+	ram_node * next_node = NULL;
 
-	// remove ram_node
-	ram_node * node_to_free = next_node;
-	prev_node->next = next_node->next;
+	// get next_node
+	if( prev_node != NULL ){
+		next_node = prev_node->next;
+	}
+	else{
+		next_node = allocated_list->head;
+	}
+
+	// check if exact match was found
+	if( next_node->start != (uint32) ram_node_start ) return NULL;	
+
+	// remove ram_node bc exact match was found
+	if( prev_node != NULL ){
+		prev_node->next = next_node->next;
+	}
+	else{
+		allocated_list->head = next_node->next;
+	}
+
 	allocated_list->size--;
-	return node_to_free;
+	return next_node;
 }
