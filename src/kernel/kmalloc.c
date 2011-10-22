@@ -24,6 +24,20 @@ va_data_t print_args[10];
 //	FUNCTIONS
 // *********************************
 
+void * kmalloc( uint32 bytes_reqd ){
+	ram_list * allocated_list = get_allocated_list();
+	ram_list * free_list = get_free_list();
+	ram_list * unused_list = get_unused_list();
+	return kmalloc_internal( bytes_reqd , allocated_list, free_list, unused_list );
+}
+
+void kfree( void * ptr ){
+	ram_list * allocated_list = get_allocated_list();
+	ram_list * free_list = get_free_list();
+	ram_list * unused_list = get_unused_list();
+	kfree_internal( ptr , allocated_list, free_list, unused_list );
+}
+
 /*
 *	function: malloc.
 * parameters: uint32-bytes needed to allocate on the heap.
@@ -34,7 +48,7 @@ va_data_t print_args[10];
 *   next address of free memory.
 * algorithm: 
 */
-void * kmalloc( uint32 bytes_reqd , ram_list * allocated_list , ram_list * free_list , ram_list * unused_list ){
+void * kmalloc_internal( uint32 bytes_reqd , ram_list * allocated_list , ram_list * free_list , ram_list * unused_list ){
 
 	// if process is asking for zero bytes, return immediately
 	if( bytes_reqd == 0 ) return NULL;
@@ -65,7 +79,7 @@ void * kmalloc( uint32 bytes_reqd , ram_list * allocated_list , ram_list * free_
 
 // at the moment, a process can free another process' RAM
 // bc memory is flat, no virtual translations
-void kfree( void * ptr , ram_list * allocated_list , ram_list * free_list , ram_list * unused_list ){
+void kfree_internal( void * ptr , ram_list * allocated_list , ram_list * free_list , ram_list * unused_list ){
 
 	// can't free NULL ptr
 	if( ptr == NULL ) return;
