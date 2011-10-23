@@ -1,28 +1,56 @@
 #include "printf.h"
+#include "types.h"
 
-BOOL print_errors = TRUE;
-BOOL print_warnings = TRUE;
+BOOL print_error_msgs = TRUE;
+BOOL print_warning_msgs = TRUE;
+BOOL print_info_msgs = TRUE;
+BOOL print_debug_msgs = TRUE;
 
 void turn_off_error_msgs(){
-	print_errors = FALSE;
+	print_error_msgs = FALSE;
 }
 
 void turn_off_warning_msgs(){
-	print_warnings = FALSE;
+	print_warning_msgs = FALSE;
+}
+
+void turn_off_info_msgs(){
+	print_info_msgs = FALSE;
+}
+
+void turn_off_debug_msgs(){
+	print_debug_msgs = FALSE;
 }
 
 void turn_on_error_msgs(){
-	print_errors = TRUE;
+	print_error_msgs = TRUE;
 }
 
 void turn_on_warning_msgs(){
-	print_warnings = TRUE;
+	print_warning_msgs = TRUE;
 }
 
-void ErrorMsg(const char * format , ... ){
-	if( print_errors ) printf(format,NULL);
+void turn_on_info_msgs(){
+	print_info_msgs = TRUE;
 }
 
-void WarningMsg(const char * format , ... ){
-	if( print_warnings ) printf(format,NULL);
+void turn_on_debug_msgs(){
+	print_debug_msgs = TRUE;
 }
+
+void error_msg(const char * format , ... ){
+	if( print_error_msgs ) printf(format,NULL);
+}
+
+void warning_msg(const char * format , ... ){
+	if( print_warning_msgs ) printf(format,NULL);
+}
+
+void info_msg(const char * format , ... ){
+	if( print_info_msgs ) printf(format,NULL);
+}
+
+void debug_msg(const char * format , ... ){
+	if( print_debug_msgs ) printf(format,NULL);
+}
+

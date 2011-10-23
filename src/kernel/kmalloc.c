@@ -1,10 +1,10 @@
+#include "message_printer.h"
 #include "kmalloc.h"
 #include "kmalloc_proto.h"
 #include "kmalloc_data.h"
 #include "multiboot.h"
 #include "RAM_list.h"
 #include "types.h"
-#include "printf.h"
 
 // *********************************
 // DEFINES / CONSTANTS
@@ -16,9 +16,6 @@
 // *********************************
 //	GLOBALS
 // *********************************
-
-// debug printing
-va_data_t print_args[10];
 
 // *********************************
 //	FUNCTIONS
@@ -33,9 +30,9 @@ void * kmalloc( uint32 bytes_reqd ){
 	int ret_val = kmalloc_internal( bytes_reqd , &space_requested , allocated_list, free_list, unused_list );
 	
 	if( ret_val == 1 )
-		printf("WARNING: kmalloc is requesting zero bytes. ",NULL);
+		warning_msg("WARNING: kmalloc is requesting zero bytes. ");
 	if( ret_val == -1 )
-		printf("ERROR: not enough RAM to fill kmalloc request. ",NULL);
+		error_msg("ERROR: not enough RAM to fill kmalloc request. ");
 
 	return space_requested;
 }
@@ -48,9 +45,9 @@ void kfree( void * ptr ){
 	int ret_val = kfree_internal( ptr , allocated_list, free_list, unused_list );
 
 	if( ret_val == -1 )
-		printf("ERROR: trying to free NULL pointer. ",NULL);
+		error_msg("ERROR: trying to free NULL pointer. ");
 	if( ret_val == -2 )
-		printf("ERROR: trying to free unallocated pointer. ",NULL);
+		error_msg("ERROR: trying to free unallocated pointer. ");
 }
 
 /*
@@ -85,7 +82,7 @@ int kmalloc_internal( uint32 bytes_reqd , void ** requested_space , ram_list * a
 	int rem = bytes_reqd % ALLOCATED_CHUNKS_DIVISIBLE_BY;
 	if( rem != 0 ){
 		bytes_reqd = bytes_reqd + ALLOCATED_CHUNKS_DIVISIBLE_BY - rem;
-		if(DEBUG) printfu("bytes_reqd updated to=%u\n" , bytes_reqd ); 
+		debug_msg("bytes_reqd updated to=%u\n" , bytes_reqd ); 
 	}
 	
 	// find free space
@@ -94,7 +91,7 @@ int kmalloc_internal( uint32 bytes_reqd , void ** requested_space , ram_list * a
 		*requested_space = NULL;
 		return -1;
 	}
-	//printfuu("found suitable RAM space %u %u\n",node->start,node->end);
+	debug_msg("found suitable RAM space %u %u\n",node->start,node->end);
 
 	// allocate free node's space
 	insert_allocated_ram_node( node , allocated_list );
@@ -156,7 +153,7 @@ ram_node * find_most_suitable_free_ram_node( uint32 bytes_reqd , ram_list * free
 				
 				// is unused list empty?
 				if( unused_ram_node == NULL ){
-					printf("Error: ran out of unused ram nodes!",NULL);
+					error_msg("Error: ran out of unused ram nodes!");
 					return next_node;
 				}
 

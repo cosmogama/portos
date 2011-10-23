@@ -1,4 +1,4 @@
-/***    		** PortalOS **
+/***    		** Portos **
 *
 *  Author: Tony Myers
 *  Contact: tonymyers82@gmail.com
@@ -6,6 +6,7 @@
 ***/ 
 
 // ********** INCLUDES ********************************
+#include "message_printer.h"
 #include "types.h"
 #include "gdt.h"
 #include "interrupts.h"
@@ -16,6 +17,7 @@
 #include "process.h"
 #include "thread.h"
 #include "tests.h"
+#include "printf.h"
 
 // ********** CONSTANTS *******************************
 
@@ -53,9 +55,16 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
 			return;
    	}
 
+		// message management
+		turn_on_error_msgs();
+		turn_on_warning_msgs();
+		turn_on_info_msgs();
+		turn_off_debug_msgs();
+
 		// initialize kernel environment
 		clearMonitor();
-		init_main_mem( mbd_addr );		
+		//init_main_mem( mbd_addr );
+		mbd_addr = 0;		
 		setupGDT();
 		PIC_initialize();
 		init_interrupts();	

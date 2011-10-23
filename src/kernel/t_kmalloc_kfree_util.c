@@ -1586,7 +1586,7 @@ void t_kmalloc_kfree_1_8_6(){
 	assert(free_list.size==2);
 	assert(free_list.head == &n2 && n2.next == &n3 && n3.next == NULL);
 	assert(unused_list.size==10);
-	assert(space_to_free == 90);
+	assert((uint32)space_to_free == 90);
 }
 
 //***********************************************************************************

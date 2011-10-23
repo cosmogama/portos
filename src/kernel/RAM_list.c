@@ -26,24 +26,5 @@ uint32 ram_list_size( ram_list * l ){
 }
 
 void dump_ram_node( ram_node * node ){
-	va_data_t args[4];
-	args[0].u = (uint32) node;
-	args[1].u = (uint32) node->next;
-	args[2].u = (uint32) node->start;
-	args[3].u = (uint32) node->end;
-	printf("RN={a=%u,n=%u,s=%u,e=%u}",args);
+	printf("RN={a=%u,n=%u,s=%u,e=%u}",(uint32)node,(uint32) node->next,(uint32) node->start,(uint32) node->end);
 }
-
-/*
-
-==
-1.5-2
-3-4
-5-6
-==
-9-10
-11-12
-==
-
-*/
-

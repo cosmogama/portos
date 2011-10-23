@@ -1,9 +1,9 @@
 #ifndef _KMALLOC_DATA_C
 #define _KMALLOC_DATA_C
 
+#include "message_printer.h"
 #include "kmalloc_data.h"
 #include "kmalloc_proto.h"
-#include "printf.h"
 #include "multiboot.h"
 
 #define FREE_RAM_TYPE 1
@@ -14,7 +14,6 @@ ram_list free_list;
 ram_list allocated_list;
 // RAM nodes that are unused (neither in free or allocated lists)
 ram_list unused_list;
-
 // raw data for unused list
 ram_node raw_ram_nodes[MAX_RAM_NODES];
 
@@ -27,18 +26,12 @@ ram_list * get_allocated_list(){
 ram_list * get_unused_list(){
 	return &unused_list;
 }
-//ram_node (raw_ram_nodes *)[MAX_RAM_NODES] get_raw_ram_nodes(){
-//	return &raw_ram_nodes;
-//}
 
 //
 void populate_unused_list(){
 	int i = 0;
-	//printf("dumping first few unused ram nodes\n",NULL);
 	for( ; i<MAX_RAM_NODES-1; i++ ){
 		raw_ram_nodes[i].next = &raw_ram_nodes[i+1];
-		//if( i<4 )
-		//	dump_ram_node(&raw_ram_nodes[i]);
 	}
 	raw_ram_nodes[MAX_RAM_NODES-1].next = NULL;
 	unused_list.head = &raw_ram_nodes[i];
@@ -59,12 +52,8 @@ void init_main_mem( unsigned long mbd_addr ){
 	memory_map * mmap;    
 	multiboot_info * mbd = (multiboot_info *) mbd_addr;
 	mmap = (memory_map *) mbd->mmap_addr;
-	uint32 amt_free_ram_available = 0;
-	
-	va_data_t print_args[10];
-	print_args[0].h = mbd->mmap_addr; 	
-	print_args[1].h = mbd->mmap_length; 	
-	//printf( "mmap_addr = %h mmap_length = %h\n" , print_args );
+	uint32 amt_free_ram_available = 0;	
+	debug_msg( "mmap_addr = %x mmap_length = %x\n" , mbd->mmap_addr , mbd->mmap_length);
 
 	// initialize ram lists
 	ram_list_init( &free_list );
@@ -83,14 +72,11 @@ void init_main_mem( unsigned long mbd_addr ){
       
 		if( mmap->length_high == 0 && mmap->length_low == 0 ) continue;
 
-		print_args[0].h = mmap->base_addr_low;
-		print_args[1].h = mmap->base_addr_low + mmap->length_low - 1;
-		print_args[2].u = mmap->length_low;
-		print_args[3].u = mmap->type;
-		//printf( "base_addr = %h end_addr = %h length = %u type = %u\n" , print_args );
+		debug_msg( "base_addr = %x end_addr = %x length = %u type = %u\n" , 
+			mmap->base_addr_low , mmap->base_addr_low + mmap->length_low - 1 , mmap->length_low , mmap->type );
 
 		if( mmap->type == FREE_RAM_TYPE ){
-			//printf( "adding free RAM chunk\n" , NULL);
+			debug_msg( "adding free RAM chunk\n" );
 			ram_node * free_node = ram_list_pop( &unused_list );
 			free_node->start = mmap->base_addr_low;
 			free_node->end = mmap->base_addr_low + mmap->length_low;
@@ -99,9 +85,7 @@ void init_main_mem( unsigned long mbd_addr ){
 		}
 	}
 
-	print_args[0].u = ram_list_size( &free_list );
-	print_args[1].u = amt_free_ram_available;
-	//printf("num free nodes=%u amount of RAM available=%u\n" , print_args );
+	debug_msg("num free nodes=%u amount of RAM available=%u\n" , free_list.size , amt_free_ram_available );
 }
 
 //************************************************
