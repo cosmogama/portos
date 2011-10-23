@@ -1,3 +1,5 @@
+#if RUN_TESTS == 1
+
 #include "t_kmalloc_kfree_util.h"
 #include "kmalloc.h"
 #include "kmalloc_proto.h"
@@ -1639,3 +1641,4 @@ void t_kmalloc_kfree_util(){
 	t_kmalloc_kfree_1_8_6();
 }
 
+#endif
