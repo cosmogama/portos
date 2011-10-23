@@ -20,6 +20,7 @@
 #include "printf.h"
 
 // ********** CONSTANTS *******************************
+#define RUN_TESTS 0
 
 // ********** GLOBAL VARIABLES ************************
 
@@ -50,7 +51,7 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
       /* message and halt, but do *not* rely on the multiboot */
       /* data structure. */
 
-			puts( "magic could not happen here :(" );
+			puts( "magic could not happen here :(\n" );
 
 			return;
    	}
@@ -61,16 +62,23 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
 		turn_on_info_msgs();
 		turn_off_debug_msgs();
 
-		// initialize kernel environment
 		clearMonitor();
-		//init_main_mem( mbd_addr );
-		mbd_addr = 0;		
+
+		// initialize interrupts
 		setupGDT();
 		PIC_initialize();
 		init_interrupts();	
 
-		// tests
+		// initialize RAM
+		init_main_mem( mbd_addr );
+
+		// run internal tests
+		#if RUN_TESTS == 1
 		run_tests();
+		#endif
+
+		// initialize filesystem
+		init_fs();
 
 		// initialize user environment
 		setupUserSpace();

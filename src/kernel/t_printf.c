@@ -1,3 +1,5 @@
+#if RUN_TESTS == 1
+
 #include "printf.h"
 
 void t_printf_1_1_1(){
@@ -12,3 +14,5 @@ void t_printf_1_1_1(){
 void t_printf(){
 	t_printf_1_1_1();
 }
+
+#endif

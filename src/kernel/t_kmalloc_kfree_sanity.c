@@ -1,3 +1,5 @@
+#if RUN_TESTS == 1
+
 #include "t_kmalloc_kfree_sanity.h"
 #include "kmalloc.h"
 #include "kmalloc_proto.h"
@@ -83,3 +85,4 @@ void t_kmalloc_kfree_sanity(){
 	t_kmalloc_kfree_3_1_4();
 }
 
+#endif
