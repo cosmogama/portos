@@ -1,11 +1,10 @@
-#if RUN_TESTS == 1
+#if RUN_TESTS == true
 
-#include "t_kmalloc_kfree_sanity.h"
 #include "kmalloc.h"
-#include "kmalloc_proto.h"
+#include "mem_util.h"
 #include "assert.h"
 #include "printf.h"
-#include "RAM_list.h"
+#include "MEM_list.h"
 #include "monitor.h"
 
 //********************************************************
@@ -75,6 +74,7 @@ void t_kmalloc_kfree_3_1_4(){
 
 //
 void t_kmalloc_kfree_sanity(){
+	puts("<kmalloc_kfree_sanity>");
 	t_kmalloc_kfree_2_1_1();
 	t_kmalloc_kfree_2_1_2();
 	t_kmalloc_kfree_2_1_3();

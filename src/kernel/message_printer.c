@@ -39,18 +39,22 @@ void turn_on_debug_msgs(){
 }
 
 void error_msg(const char * format , ... ){
-	if( print_error_msgs ) printf(format,NULL);
+	int *varg = (int *)(&format);
+	if( print_error_msgs ) print( NULL , varg );
 }
 
 void warning_msg(const char * format , ... ){
-	if( print_warning_msgs ) printf(format,NULL);
+	int *varg = (int *)(&format);
+	if( print_warning_msgs ) print( NULL , varg );
 }
 
 void info_msg(const char * format , ... ){
-	if( print_info_msgs ) printf(format,NULL);
+	int *varg = (int *)(&format);
+	if( print_info_msgs ) print( NULL , varg );
 }
 
 void debug_msg(const char * format , ... ){
-	if( print_debug_msgs ) printf(format,NULL);
+	int *varg = (int *)(&format);
+	if( print_debug_msgs ) print( NULL , varg );
 }
 

@@ -8,13 +8,15 @@
 #define NULL 0
 #endif 
 
+typedef	char BYTE;
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;
+typedef long long int64;
 typedef unsigned long long uint64;
-typedef	unsigned char BYTE;
+typedef	unsigned char UBYTE;
 typedef	unsigned short WORD;
 typedef unsigned int DWORD;
-typedef unsigned int BOOL;
+typedef UBYTE BOOL;
 
 #endif

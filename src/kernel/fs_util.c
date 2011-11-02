@@ -1,16 +1,16 @@
 #include "message_printer.h"
-#include "kmalloc.h"
+#include "fs.h"
+#include "fs_util.h"
 #include "mem_util.h"
-#include "kmalloc_data.h"
-#include "multiboot.h"
-#include "MEM_list.h"
+#include "fs_data.h"
+#include "list.h"
 #include "types.h"
+#include "kmalloc.h"
 
 // *********************************
 // DEFINES / CONSTANTS
 // *********************************
-#define ALLOCATED_CHUNKS_DIVISIBLE_BY 4
-#define MIN_NUM_BYTES_TO_ALLOCATE 4
+// #define ALLOCATED_CHUNKS_DIVISIBLE_BY 4
 #define DEBUG 1
 
 // *********************************
@@ -21,34 +21,74 @@
 //	FUNCTIONS
 // *********************************
 
-void * kmalloc( uint32 bytes_reqd ){
-	mem_list * allocated_list = get_allocated_ram_list();
-	mem_list * free_list = get_free_ram_list();
-	mem_list * unused_list = get_unused_ram_list();
-	void * space_requested = NULL;
+uint32 kfopen(const char * filepath){
+	mem_list * allocated_list = get_allocated_fs_list();
+	mem_list * free_list = get_free_fs_list();
+	mem_list * unused_list = get_unused_fs_list();
+	uint32 desc = -1;
+	int ret_val = kfopen_internal(filepath , &desc , allocated_list , free_list , unused_list);
+	if( ret_val != 0 ){
+		error_msg("kfopen failed");
+	}
+	return desc;
+}
 
-	int ret_val = kmalloc_internal( bytes_reqd , &space_requested , allocated_list, free_list, unused_list );
+int kfopen_internal(const char * filepath , uint32 * desc , mem_list * allocated_list, mem_list * free_list , mem_list * unused_list){
+
+	// assign descriptor
+	uint32 did = new_descriptor_id();	
+	DESCRIPTOR * d = kmalloc(sizeof(DESCRIPTOR));
+ 	d->id = did;
+	d->path = filepath;
+	d->sector = get_sector(filepath);
+
+	// check if file already exists
+	BOOL exists = file_exists();
+
+	exists = !exists; // temporary delete
+	allocated_list = NULL;
+	free_list = NULL;
+	unused_list = NULL;
 	
-	if( ret_val == 1 )
-		warning_msg("WARNING: kmalloc is requesting zero bytes. ");
-	if( ret_val == -1 )
-		error_msg("ERROR: not enough RAM to fill kmalloc request. ");
+	*desc = did;
 
-	return space_requested;
+	//if( !exists )
+	// 	insert_allocated_mem_node( node , allocated_list );
+
+	return 0;
 }
 
-void kfree( void * ptr ){
-	mem_list * allocated_list = get_allocated_ram_list();
-	mem_list * free_list = get_free_ram_list();
-	mem_list * unused_list = get_unused_ram_list();
-
-	int ret_val = kfree_internal( ptr , allocated_list, free_list, unused_list );
-
-	if( ret_val == -1 )
-		error_msg("ERROR: trying to free NULL pointer. ");
-	if( ret_val == -2 )
-		error_msg("ERROR: trying to free unallocated pointer. ");
+BOOL file_exists(){
+	return TRUE;
 }
+
+SECTOR * get_sector( const char * path ){
+	path = NULL;
+	return NULL;
+}
+
+/*
+void kfclose( DESCRIPTOR desc ){
+	fd_node = remove_fd_node( DESCRIPTOR );
+}
+
+void kfwrite( DESCRIPTOR desc , BYTE * data , uint32 num_bytes );
+	mem_list * allocated_list = get_allocated_fs_list();
+	mem_list * free_list = get_free_fs_list();
+
+	ret_val = kfwrite_internal( desc , data , num_bytes , allocated_list, free_list );
+}
+
+uint32 kfread(DESCRIPTOR desc , BYTE * buffer , uint32 size_buffer ){
+	mem_list * allocated_list = get_allocated_fs_list();
+	mem_list * free_list = get_free_fs_list();
+
+	ret_val = kfread_internal( desc , buffer , size_buffer , allocated_list, free_list );
+}
+
+void kfdel(const char * filename){
+}
+*/
 
 /*
 *	function: malloc.
@@ -65,6 +105,7 @@ void kfree( void * ptr ){
 *   next address of free memory.
 * algorithm: 
 */
+/*
 int kmalloc_internal( uint32 bytes_reqd , void ** requested_space , mem_list * allocated_list , mem_list * free_list , mem_list * unused_list ){
 
 	// if process is asking for zero bytes, return immediately
@@ -123,3 +164,5 @@ int kfree_internal( void * ptr , mem_list * allocated_list , mem_list * free_lis
 	
 	return 0;
 }
+
+*/

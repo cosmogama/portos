@@ -5,6 +5,8 @@
 *
 ***/ 
 
+#define RUN_TESTS false
+
 // ********** INCLUDES ********************************
 #include "message_printer.h"
 #include "types.h"
@@ -20,7 +22,6 @@
 #include "printf.h"
 
 // ********** CONSTANTS *******************************
-#define RUN_TESTS 0
 
 // ********** GLOBAL VARIABLES ************************
 
@@ -71,14 +72,15 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
 
 		// initialize RAM
 		init_main_mem( mbd_addr );
+		// mbd_addr = 0;
 
 		// run internal tests
-		#if RUN_TESTS == 1
+		#if RUN_TESTS == true
 		run_tests();
 		#endif
 
 		// initialize filesystem
-		init_fs();
+		// init_fs();
 
 		// initialize user environment
 		setupUserSpace();
