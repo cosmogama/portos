@@ -22,13 +22,16 @@ typedef struct BYTE_HEX{
 // FUNCTIONS
 //*****************************************************
 
-void hbtoa( BYTE_HEX * dest , uint8 src );
-void itoa( char (* dest)[11] , int src );
-void uitoa( char (* dest)[11] , uint32 src );
-void ltoa(char (* dest)[20] ,long value);
-void ultoa(char (* dest)[20] ,unsigned long value);
-void ustoa( char (* dest)[6] , uint16 src );
+char * btoa( char * dest , BYTE src , BOOL is_unsigned );
+char * shtoa( char * dest , short src , BOOL is_unsigned );
+char * itoa( char * dest , int src , BOOL is_unsigned );
+char * ltoa( char * dest ,long value , BOOL is_unsigned );
+char * i64toa( char * dest , int64 value , BOOL is_unsigned );
 
-void uitoh( char (* dest)[11] , uint32 src );
+char * ftoa( char * dest , float value);
+char * dtoa( char * dest , double value);
+
+char * uitoh( char * dest , uint32 src );
+void hbtoa( BYTE_HEX * dest , uint8 src );
 
 #endif

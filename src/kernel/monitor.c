@@ -1,5 +1,7 @@
 #include "IO.h"
 #include "data.h"
+#include "monitor.h"
+#include "message_printer.h"
 
 #define CX_MAX 80
 #define CY_MAX 250
@@ -19,20 +21,11 @@ void repaint_cursor();
 uint16 cursor_forward();
 uint16 cursor_back();
 
-//**************************************************
-//	FUNCTIONS
-//**************************************************
-
-void clearMonitor(){
-
-	volatile unsigned char *videoram = (unsigned char *) 0xb8000;
-
-  int i = 0;  
-  for(;i<NUM_PIXELS;i++){
-    videoram[ 2*i ] = 0x00;
-    videoram[ 1 + 2*i ] = 0x07;
-  }
-}
+// ***********************************************************************
+//
+//			CONSOLE OUTPUT PRINT FUNCTIONS
+//
+// ***********************************************************************
 
 void putc( const char c  ){
 
@@ -55,7 +48,18 @@ void putc( const char c  ){
 	repaint_cursor();
 }
 
-void puts( const char * string  ){
+void putb( const BYTE b ){
+
+	BYTE_HEX bh;
+	hbtoa( &bh , b );
+
+	putc( '0' );
+	putc( 'x' );
+	putc( bh.hi );
+	putc( bh.lo );
+}
+
+char * puts( const char * string  ){
 	
 	volatile unsigned char *videoram = (unsigned char *) 0xb8000;  
 
@@ -77,94 +81,25 @@ void puts( const char * string  ){
   }
 
 	repaint_cursor();
+
+	return (char *) string + i;
 }
 
-void putb( const unsigned char b ){
+// ********************************************************************
+//
+//			MONITOR UTILITY FUNCTIONS
+//
+// ********************************************************************
 
-	BYTE_HEX bh;
-	hbtoa( &bh , b );
+void clearMonitor(){
 
-	putc( '0' );
-	putc( 'x' );
-	putc( bh.hi );
-	putc( bh.lo );
-}
+	volatile unsigned char *videoram = (unsigned char *) 0xb8000;
 
-void putsh( const short sh ){
-
-	//char a[6];
-	//stoa( &a , sh );
-
-	//puts( a );
-	short temp = sh;
-	temp = 0;
-	puts("cant print shorts yet");
-}
-
-void puti( const int i ){
-
-	char a[11];
-	itoa( &a , i );
-
-	puts( a );
-}
-
-void putl( const long l ){
-  char a[20];
-  ltoa( &a , l );
-
-  puts( a );
-}
-
-void putul( const unsigned long ul ){
-  char a[20];
-  ultoa( &a , ul );
-
-  puts( a );
-}
-
-void putf( const float f ){
-	//char a[22];
-	//ftoa( &a , f );
-
-	//puts( a );
-	float temp = f;
-	temp = 0;
-	puts("cant print floats yet");
-}
-
-void putd( const double d ){
-	//char a[22];
-	//dtoa( &a , d );
-
-//	puts( a );
-	double temp = d;
-	temp = 0;
-	puts("cant print doubles yet");
-}
-
-void putui( const uint32 ui ){
-
-	char a[11];
-	uitoa( &a , (int) ui );
-
-	puts( a );
-}
-
-void putush( const uint16 ush ){
-
-	char a[6];
-	ustoa( &a , ush );
-
-	puts( a );
-}
-
-void puth( const uint32 ui ){
-
-	char a[11];
-	uitoh( &a , ui );
-
-	puts( a );
+  int i = 0;  
+  for(;i<NUM_PIXELS;i++){
+    videoram[ 2*i ] = 0x00;
+    videoram[ 1 + 2*i ] = 0x07;
+  }
 }
 
 void repaint_cursor()
