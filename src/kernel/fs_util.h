@@ -2,7 +2,7 @@
 #define _FS_UTIL_H
 
 #include "types.h"
-#include "MEM_list.h"
+#include "mem_list.h"
 
 //************************************************
 // TYPES
@@ -22,7 +22,7 @@ typedef struct DESCRIPTOR{
 uint32 kfopen(const char * filepath);
 int kfopen_internal(const char * filepath , uint32 * desc , mem_list * allocated_list, mem_list * free_list , mem_list * unused_list);
 
-BOOL file_exists();
+BOOL file_exists(void);
 SECTOR * get_sector( const char * path );
 
 //void * kfwrite( BYTE * data , uint32 num_bytes );

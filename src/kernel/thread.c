@@ -1,3 +1,3 @@
-void spawn_thread(){
+void spawn_thread(void){
 
 }

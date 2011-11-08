@@ -30,6 +30,6 @@ typedef struct _IDTR IDTR;
 // FUNCTIONS
 //***************************************************************
 
-void init_IDT();
+void init_IDT(void);
 
 #endif

@@ -2,7 +2,7 @@
 #define _KMALLOC_H
 
 #include "types.h"
-#include "MEM_list.h"
+#include "mem_list.h"
 
 //************************************************
 // PROTOTYPES

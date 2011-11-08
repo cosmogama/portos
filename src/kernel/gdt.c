@@ -58,7 +58,7 @@ void setupGDT( void )
 ***/
 
 
-void flushiqandsetsegmentreg()
+void flushiqandsetsegmentreg(void)
 {
 
 	  __asm__ __volatile__("ljmp $8, $__flush\n"

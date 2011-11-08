@@ -1,4 +1,4 @@
-// ; contains wrapper functions for misc assembly functions
+// contains wrapper functions for misc assembly functions
 
 .globl load_IDT
 		

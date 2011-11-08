@@ -3,7 +3,7 @@
 #include "mem_util.h"
 #include "kmalloc_data.h"
 #include "multiboot.h"
-#include "MEM_list.h"
+#include "mem_list.h"
 #include "types.h"
 
 // *********************************

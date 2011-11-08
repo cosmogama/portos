@@ -20,8 +20,8 @@ typedef struct list{
 //************************************************
 // PROTOTYPES
 //************************************************
-list * create_list();
-void * list_pop( list * l );
+list * create_list(void);
+list_node * list_pop( list * l );
 void list_push( void * data , list * l );
 uint32 list_size( list * l );
 

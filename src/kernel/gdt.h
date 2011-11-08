@@ -44,7 +44,7 @@ void makezero( DESCRIPTOR *d );
 DESCRIPTOR *GDT;
 void setupGDT(void);
 //void lgdt( struct gdtr* );
-void flushiqandsetsegmentreg();
+void flushiqandsetsegmentreg(void);
 
 void setupDescriptor( DESCRIPTOR *d, DWORD baseaddress, DWORD segmentlimit, BYTE type, BYTE dpl, BYTE systemflag, BYTE db);
 

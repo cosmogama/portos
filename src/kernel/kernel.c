@@ -13,13 +13,15 @@
 #include "gdt.h"
 #include "interrupts.h"
 #include "PIC.h"
-#include "monitor.h"
 #include "IO.h"
 #include "kmalloc_data.h"
 #include "process.h"
 #include "thread.h"
-#include "tests.h"
+#include <tests.h>
 #include "printf.h"
+#include "fs.h"
+#include "monitor.h"
+#include "kutil.h"
 
 // ********** CONSTANTS *******************************
 
@@ -28,19 +30,16 @@
 // ********** PROTOTYPES *****************************
 
 // kernel space initialize functions
-void initializeSystem();
-void shutdownSystem();
+void initializeSystem(void);
+void shutdownSystem(void);
 
 // user space initialize functions
-void setupUserSpace();
-void setupFileSystem();
-void startScheduler();
-void startIdleThread();
-void startServices();
-void startShell();
-
-// utiltity functions
-void sleep( unsigned long milliseconds );
+void setupUserSpace(void);
+void setupFileSystem(void);
+void startScheduler(void);
+void startIdleThread(void);
+void startServices(void);
+void startShell(void);
 
 // ********** FUNCTIONS ******************************
 
@@ -80,7 +79,7 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
 		#endif
 
 		// initialize filesystem
-		// init_fs();
+		init_fs();
 
 		// initialize user environment
 		setupUserSpace();
@@ -90,12 +89,12 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
 }
 
 void
-shutdownSystem(){
+shutdownSystem(void){
 	asm( "hlt" );
 }
 
 void
-setupUserSpace(){	
+setupUserSpace(void){	
 	setupFileSystem();
 	startIdleThread();
 	startScheduler();
@@ -104,46 +103,32 @@ setupUserSpace(){
 }
 
 void
-setupFileSystem(){
+setupFileSystem(void){
 	
 }
 
 void
-startIdleThread(){
+startIdleThread(void){
 
 }
 
 void
-startScheduler(){
+startScheduler(void){
 
 }
 
 void
-startServices(){
+startServices(void){
 
 }
 
 void
-startShell(){
+startShell(void){
 
-	puts( "$: \0"  );
+	puts( "$: "  );
 
 	while( 1 ){ 
   	sleep( 1000 );
   }
-}
-
-void 
-sleep( unsigned long milliseconds ){
-
-  const unsigned long STEPS_PER_MILLISEC = 100000;
-  unsigned long long iter = STEPS_PER_MILLISEC * milliseconds;
-  
-  unsigned long long i = 0;
-  for(; i<iter; i++){
-    i++;
-		i--;
-	}
-
 }
 

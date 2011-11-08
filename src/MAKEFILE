@@ -1,2 +1,0 @@
-compile_c_files:
-	gcc -o 

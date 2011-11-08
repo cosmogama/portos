@@ -6,7 +6,7 @@
 
 ## CLEAN
 echo "cleaning..."
-./clean.sh
+make clean
 
 ## CONSTANTS
 EXP_FLOPPY_SIZE=1474560
@@ -21,33 +21,21 @@ fi
 echo "assemble loader success."
 
 ## compile kernel
-cd kernel
-i586-elf-gcc -c *.c *.s -Werror -Wall -Wextra -nostdlib -nostartfiles -nodefaultlibs -nobuiltin -fno-builtin
-# -fpack-struct
+make
 if [ $? != "0" ]; then
   echo "failed to compile kernel.c!"
   exit 1
 fi
-cd ..
-
-# nasm -f elf -o kernel/GDTload.o kernel/GDTload.s
-# nasm -f elf -o kernel/segm-asm.o kernel/segm-asm.s
-#i586-elf-gcc -o kernel/segm.o kernel/segm.s
-if [ $? != "0" ]; then
-  echo "failed to assemble an assembly file!"
-  exit 1
-fi
-
 echo "compile success."
 
 ## link loader to kernel
-i586-elf-ld -T linker.ld -o kernel.bin loader.o kernel/*.o
+i586-elf-ld -T linker.ld -o kernel.bin loader.o obj/*.o
 if [ $? != "0" ]; then
   echo "failed to link loader to kernel!"
   exit 1
 fi
 
-echo "link loader to kernel success."
+echo "link loader to kernel object files success."
 
 ## CHECK DEPENDENCY FILES
 

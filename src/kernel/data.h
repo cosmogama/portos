@@ -32,6 +32,6 @@ char * ftoa( char * dest , float value);
 char * dtoa( char * dest , double value);
 
 char * uitoh( char * dest , uint32 src );
-void hbtoa( BYTE_HEX * dest , uint8 src );
+void hbtoa( BYTE_HEX * dest , UBYTE src );
 
 #endif

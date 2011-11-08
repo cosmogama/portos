@@ -1,4 +1,4 @@
-#include "MEM_list.h"
+#include "mem_list.h"
 #include "printf.h"
 
 void mem_list_init( mem_list * l ){

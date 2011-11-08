@@ -11,14 +11,14 @@
 // **************************************************
 
 /* here are references to all the isr stubs that are defined in isr_stubs.s */
-extern void isr_stub();
-extern void isr_stub_kbd();
+extern void isr_stub(void);
+extern void isr_stub_kbd(void);
 
 // **************************************************
 //	TYPES
 // **************************************************
 
-typedef void (*interrupt_t)();
+typedef void (*interrupt_t)(void);
 
 // **************************************************
 //	GLOBAL DATA
@@ -31,11 +31,11 @@ interrupt_t interrupt_handlers[MAX_INTERRUPTS];
 //	INTERRUPT SERVICE ROUTINES
 // **************************************************
 
-void handle_interrupt(){
+void handle_interrupt(void){
 	outportb(0x20,0x20);
 }
 
-void handle_interrupt_kbd(){
+void handle_interrupt_kbd(void){
 
 	// receive key press from PIC
 	unsigned char scancode = inportb(0x60);
@@ -86,7 +86,7 @@ void register_isr(int no, interrupt_t i) {
   interrupt_handlers[no] = i;
 }
 
-void init_interrupts() {
+void init_interrupts(void) {
 
   // setup desciptor table
   init_IDT();

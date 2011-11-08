@@ -3,15 +3,9 @@
 
 #include "types.h"
 
-void clearMonitor();
+void clearMonitor(void);
 
-// ***********************************************************************
-//
-//			CONSOLE OUTPUT PRINT FUNCTIONS
-//
-// ***********************************************************************
-
-void putb( const BYTE b );
+void putb( const UBYTE b );
 void putc( const char c  );
 char * puts( const char * string  );
 
