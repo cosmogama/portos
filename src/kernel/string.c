@@ -19,8 +19,9 @@ int strcmp( char * a , char * b ){
 
 char * strcpy( char ** dest , char * src  ){	
 	char * d = *dest;
-	char * s = src;
-	if( src == NULL ) s = "(null)";
+	const char * s = src;
+	const char * null = "(null)";
+	if( src == NULL ) s = null;
 	while( (*d++ = *s++) != '\0' )
 		continue;
 	return --d;

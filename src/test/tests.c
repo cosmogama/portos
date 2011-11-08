@@ -7,7 +7,7 @@
 #include "t_kmalloc_kfree.h"
 #include "message_printer.h"
 
-void run_tests(){
+void run_tests(void){
 	turn_off_error_msgs();
 	turn_off_warning_msgs();
 	turn_off_info_msgs();

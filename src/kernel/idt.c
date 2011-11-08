@@ -10,10 +10,10 @@ static void idt_set_gate(int, uint16, uint8, uint32);
 /* defined in idt-asm.s */
 extern void load_IDT(uint32);
 /* defined in isr_stubs.s */
-extern void isr_stub();
-extern void isr_stub_kbd();
+extern void isr_stub(void);
+extern void isr_stub_kbd(void);
 
-void init_IDT()  {
+void init_IDT(void)  {
 
 	int i = 0;
 	for( ; i<MAX_INTERRUPTS; i++ ){

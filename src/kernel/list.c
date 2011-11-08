@@ -1,10 +1,11 @@
-//#include "list.h"
+#include "list.h"
+#include "kmalloc.h"
 
-list * create_list(){
-	list * kmalloc(sizeof(list));
+list * create_list(void){
+	list * l = kmalloc(sizeof(list));
 	l->size = 0;
 	l->head = NULL;
-	return list;
+	return l;
 }
 
 list_node * list_pop( list * l ){

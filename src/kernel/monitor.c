@@ -17,9 +17,9 @@ int cx = 0 , cy = 0;
 //	PROTOTYPES
 //**************************************************
 
-void repaint_cursor();
-uint16 cursor_forward();
-uint16 cursor_back();
+void repaint_cursor(void);
+uint16 cursor_forward(void);
+uint16 cursor_back(void);
 
 // ***********************************************************************
 //
@@ -48,7 +48,7 @@ void putc( const char c  ){
 	repaint_cursor();
 }
 
-void putb( const BYTE b ){
+void putb( const UBYTE b ){
 
 	BYTE_HEX bh;
 	hbtoa( &bh , b );
@@ -91,7 +91,7 @@ char * puts( const char * string  ){
 //
 // ********************************************************************
 
-void clearMonitor(){
+void clearMonitor(void){
 
 	volatile unsigned char *videoram = (unsigned char *) 0xb8000;
 
@@ -102,7 +102,7 @@ void clearMonitor(){
   }
 }
 
-void repaint_cursor()
+void repaint_cursor(void)
 {
     unsigned short position=(cy*80) + cx;
  
@@ -114,7 +114,7 @@ void repaint_cursor()
     outportb(0x3D5, (unsigned char )((position>>8)&0xFF));
 }
 
-void backspace(){
+void backspace(void){
 
 		volatile unsigned char *videoram = (unsigned char *) 0xb8000;  
 		unsigned short position = position=(cy*80) + cx;
@@ -129,7 +129,7 @@ void backspace(){
 }
 
 uint16 
-cursor_forward(){
+cursor_forward(void){
 	cx++;
   if( cx == CX_MAX ){
   	cx = 0;
@@ -139,7 +139,7 @@ cursor_forward(){
 }
 
 uint16 
-cursor_back(){
+cursor_back(void){
 	cx--;
   if( cx == 0 ){
   	cx = CX_MAX;

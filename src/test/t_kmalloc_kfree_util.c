@@ -4,13 +4,13 @@
 #include "mem_util.h"
 #include "assert.h"
 #include "printf.h"
-#include "MEM_list.h"
+#include "mem_list.h"
 #include "monitor.h"
 
 //********************************************************
 // INTERNAL FUNCTION TESTING
 //********************************************************
-void t_kmalloc_kfree_1_1_1(){
+void t_kmalloc_kfree_1_1_1(void){
 	puts("|1.1.*|");
 
 	// data structures	
@@ -47,7 +47,7 @@ void t_kmalloc_kfree_1_1_1(){
 	assert(unused_list.head==&raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_1_2(){
+void t_kmalloc_kfree_1_1_2(void){
 	puts("|");
 
 	// data structures	
@@ -85,7 +85,7 @@ void t_kmalloc_kfree_1_1_2(){
 	assert(n2.next==&raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_1_3(){
+void t_kmalloc_kfree_1_1_3(void){
 	puts("|");
 
 	// data structures	
@@ -123,7 +123,7 @@ void t_kmalloc_kfree_1_1_3(){
 	assert(n3.next==&raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_1_4(){
+void t_kmalloc_kfree_1_1_4(void){
 	puts("|");
 
 	// data structures	
@@ -164,7 +164,7 @@ void t_kmalloc_kfree_1_1_4(){
 	assert(n3.next==&n2 && n2.next==&raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_1_5(){
+void t_kmalloc_kfree_1_1_5(void){
 	puts("|");
 
 	// data structures	
@@ -202,7 +202,7 @@ void t_kmalloc_kfree_1_1_5(){
 	assert(n3.next==&n2 && n2.next==&raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_1_6(){
+void t_kmalloc_kfree_1_1_6(void){
 	puts("|");
 
 	// data structures	
@@ -237,7 +237,7 @@ void t_kmalloc_kfree_1_1_6(){
 	assert(n2.next==&raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_1_7(){
+void t_kmalloc_kfree_1_1_7(void){
 	puts("|");
 
 	// data structures	
@@ -272,7 +272,7 @@ void t_kmalloc_kfree_1_1_7(){
 	assert(n3.next==&raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_1_8(){
+void t_kmalloc_kfree_1_1_8(void){
 	puts("|");
 
 	// data structures	
@@ -303,7 +303,7 @@ void t_kmalloc_kfree_1_1_8(){
 	assert(unused_list.head==&raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_2_1(){	
+void t_kmalloc_kfree_1_2_1(void){	
 	puts("|1.2.*|");
 
 	// data structures	
@@ -340,7 +340,7 @@ void t_kmalloc_kfree_1_2_1(){
 	assert(n2.next == &n3);
 }
 
-void t_kmalloc_kfree_1_2_2(){	
+void t_kmalloc_kfree_1_2_2(void){	
 	puts("|");
 
 	// data structures	
@@ -376,7 +376,7 @@ void t_kmalloc_kfree_1_2_2(){
 	assert(free_list.head == &n1 && n1.next == &n2 && n2.next == NULL );
 }
 
-void t_kmalloc_kfree_1_2_3(){	
+void t_kmalloc_kfree_1_2_3(void){	
 	puts("|");
 
 	// data structures	
@@ -415,7 +415,7 @@ void t_kmalloc_kfree_1_2_3(){
 	assert(unused_list.head==&raw_mem_nodes[1]);
 }
 
-void t_kmalloc_kfree_1_2_4(){	
+void t_kmalloc_kfree_1_2_4(void){	
 	puts("|");
 
 	// data structures	
@@ -452,7 +452,7 @@ void t_kmalloc_kfree_1_2_4(){
 	assert(unused_list.head==&raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_2_5(){	
+void t_kmalloc_kfree_1_2_5(void){	
 	puts("|");
 
 	// data structures	
@@ -492,7 +492,7 @@ void t_kmalloc_kfree_1_2_5(){
 	assert(unused_list.head==&raw_mem_nodes[1]);
 }
 
-void t_kmalloc_kfree_1_2_6(){	
+void t_kmalloc_kfree_1_2_6(void){	
 	puts("|");
 
 	// data structures	
@@ -532,7 +532,7 @@ void t_kmalloc_kfree_1_2_6(){
 	assert(unused_list.head==&raw_mem_nodes[1]);
 }
 
-void t_kmalloc_kfree_1_3_1(){	
+void t_kmalloc_kfree_1_3_1(void){	
 	puts("|1.3.*|");
 
 	// data structures	
@@ -559,7 +559,7 @@ void t_kmalloc_kfree_1_3_1(){
 	assert(n1.next == &n2 && n2.next == &n3 && n3.next == NULL);
 }
 
-void t_kmalloc_kfree_1_3_2(){	
+void t_kmalloc_kfree_1_3_2(void){	
 	puts("|");
 
 	// data structures	
@@ -586,7 +586,7 @@ void t_kmalloc_kfree_1_3_2(){
 	assert(n1.next == &n2 && n2.next == &n3 && n3.next == NULL);
 }
 
-void t_kmalloc_kfree_1_3_3(){	
+void t_kmalloc_kfree_1_3_3(void){	
 	puts("|");
 
 	// data structures	
@@ -613,7 +613,7 @@ void t_kmalloc_kfree_1_3_3(){
 	assert(n1.next == &n2 && n2.next == &n3 && n3.next == NULL);
 }
 
-void t_kmalloc_kfree_1_3_4(){	
+void t_kmalloc_kfree_1_3_4(void){	
 	puts("|");
 
 	// data structures	
@@ -640,7 +640,7 @@ void t_kmalloc_kfree_1_3_4(){
 	assert(n1.next == &n2 && n2.next == &n3 && n3.next == NULL);
 }
 
-void t_kmalloc_kfree_1_4_1(){	
+void t_kmalloc_kfree_1_4_1(void){	
 	puts("|1.4.*|");
 
 	// data structures	
@@ -669,7 +669,7 @@ void t_kmalloc_kfree_1_4_1(){
 	assert(node_to_insert.next == &n1 && n1.next == &n2 && n2.next == &n3 && n3.next == NULL);
 }
 
-void t_kmalloc_kfree_1_4_2(){	
+void t_kmalloc_kfree_1_4_2(void){	
 	puts("|");
 
 	// data structures	
@@ -698,7 +698,7 @@ void t_kmalloc_kfree_1_4_2(){
 	assert(n1.next == &node_to_insert && node_to_insert.next == &n2 && n2.next == &n3 && n3.next == NULL);
 }
 
-void t_kmalloc_kfree_1_4_3(){	
+void t_kmalloc_kfree_1_4_3(void){	
 	puts("|");
 
 	// data structures	
@@ -727,7 +727,7 @@ void t_kmalloc_kfree_1_4_3(){
 	assert(n1.next == &n2 && n2.next == &node_to_insert && node_to_insert.next == &n3 && n3.next == NULL);
 }
 
-void t_kmalloc_kfree_1_4_4(){	
+void t_kmalloc_kfree_1_4_4(void){	
 	puts("|");
 
 	// data structures	
@@ -756,7 +756,7 @@ void t_kmalloc_kfree_1_4_4(){
 	assert(n1.next == &n2 && n2.next == &n3 && n3.next == &node_to_insert && node_to_insert.next == NULL);
 }
 
-void t_kmalloc_kfree_1_4_5(){	
+void t_kmalloc_kfree_1_4_5(void){	
 	puts("|");
 
 	// data structures	
@@ -775,7 +775,7 @@ void t_kmalloc_kfree_1_4_5(){
 	assert(allocated_list.head == &node_to_insert && node_to_insert.next == NULL);
 }
 
-void t_kmalloc_kfree_1_5_1(){	
+void t_kmalloc_kfree_1_5_1(void){	
 	puts("|1.5.*|");
 
 	// data structures	
@@ -814,7 +814,7 @@ void t_kmalloc_kfree_1_5_1(){
 	assert(node_to_insert.start == 50 && node_to_insert.end == 1999);
 }
 
-void t_kmalloc_kfree_1_5_2(){	
+void t_kmalloc_kfree_1_5_2(void){	
 	puts("|");
 
 	// data structures	
@@ -853,7 +853,7 @@ void t_kmalloc_kfree_1_5_2(){
 	assert(n1.start == 100 && n1.end == 4999);
 }
 
-void t_kmalloc_kfree_1_5_3(){	
+void t_kmalloc_kfree_1_5_3(void){	
 	puts("|");
 
 	// data structures	
@@ -891,7 +891,7 @@ void t_kmalloc_kfree_1_5_3(){
 	assert(n2.start == 2100 && n2.end == 5050 && n3.start == 5100 && n3.end == 9999);
 }
 
-void t_kmalloc_kfree_1_5_4(){	
+void t_kmalloc_kfree_1_5_4(void){	
 	puts("|");
 
 	// data structures	
@@ -929,7 +929,7 @@ void t_kmalloc_kfree_1_5_4(){
 	assert(n3.start == 5100 && n3.end == 10050);
 }
 
-void t_kmalloc_kfree_1_5_5(){	
+void t_kmalloc_kfree_1_5_5(void){	
 	puts("|");
 
 	// data structures	
@@ -967,7 +967,7 @@ void t_kmalloc_kfree_1_5_5(){
 	assert(n3.start == 5100 && n3.end == 9999 && node_to_insert.start == 10050 && node_to_insert.end == 11050);
 }
 
-void t_kmalloc_kfree_1_6_1(){	
+void t_kmalloc_kfree_1_6_1(void){	
 	puts("|1.6.*|");
 
 	// data structures	
@@ -996,7 +996,7 @@ void t_kmalloc_kfree_1_6_1(){
 	assert(node_removed->start==100 && node_removed->end==1999);
 }
 
-void t_kmalloc_kfree_1_6_2(){	
+void t_kmalloc_kfree_1_6_2(void){	
 	puts("|");
 
 	// data structures	
@@ -1025,7 +1025,7 @@ void t_kmalloc_kfree_1_6_2(){
 	assert(node_removed->start==2100 && node_removed->end==4999);
 }
 
-void t_kmalloc_kfree_1_6_3(){	
+void t_kmalloc_kfree_1_6_3(void){	
 	puts("|");
 
 	// data structures	
@@ -1054,7 +1054,7 @@ void t_kmalloc_kfree_1_6_3(){
 	assert(node_removed->start==5100 && node_removed->end==9999);
 }
 
-void t_kmalloc_kfree_1_6_4(){	
+void t_kmalloc_kfree_1_6_4(void){	
 	puts("|");
 
 	// data structures	
@@ -1083,7 +1083,7 @@ void t_kmalloc_kfree_1_6_4(){
 	assert(node_removed==NULL);
 }
 
-void t_kmalloc_kfree_1_6_5(){	
+void t_kmalloc_kfree_1_6_5(void){	
 	puts("|");
 
 	// data structures	
@@ -1112,7 +1112,7 @@ void t_kmalloc_kfree_1_6_5(){
 	assert(node_removed==NULL);
 }
 
-void t_kmalloc_kfree_1_6_6(){	
+void t_kmalloc_kfree_1_6_6(void){	
 	puts("|");
 
 	// data structures	
@@ -1130,7 +1130,7 @@ void t_kmalloc_kfree_1_6_6(){
 	assert(node_removed==NULL);
 }
 
-void t_kmalloc_kfree_1_6_7(){	
+void t_kmalloc_kfree_1_6_7(void){	
 	puts("|");
 
 	// data structures	
@@ -1153,7 +1153,7 @@ void t_kmalloc_kfree_1_6_7(){
 	assert(node_removed->start == 100 && node_removed->end == 1999);
 }
 
-void t_kmalloc_kfree_1_7_1(){	
+void t_kmalloc_kfree_1_7_1(void){	
 	puts("|1.7.*|");
 
 	// data structures	
@@ -1197,7 +1197,7 @@ void t_kmalloc_kfree_1_7_1(){
 	assert((uint32)requested_space == 40000);
 }
 
-void t_kmalloc_kfree_1_7_2(){	
+void t_kmalloc_kfree_1_7_2(void){	
 	puts("|");
 
 	// data structures	
@@ -1242,7 +1242,7 @@ void t_kmalloc_kfree_1_7_2(){
 	assert((uint32)requested_space == 60000);
 }
 
-void t_kmalloc_kfree_1_7_3(){	
+void t_kmalloc_kfree_1_7_3(void){	
 	puts("|");
 
 	// data structures	
@@ -1286,7 +1286,7 @@ void t_kmalloc_kfree_1_7_3(){
 	assert((uint32)requested_space == NULL);
 }
 
-void t_kmalloc_kfree_1_7_4(){	
+void t_kmalloc_kfree_1_7_4(void){	
 	puts("|");
 
 	// data structures	
@@ -1330,7 +1330,7 @@ void t_kmalloc_kfree_1_7_4(){
 	assert((uint32)requested_space == NULL);
 }
 
-void t_kmalloc_kfree_1_8_1(){	
+void t_kmalloc_kfree_1_8_1(void){	
 	puts("|1.8.*|");
 
 	// data structures	
@@ -1377,7 +1377,7 @@ void t_kmalloc_kfree_1_8_1(){
 	assert(unused_list.head == &n2 && n2.next == &raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_8_2(){	
+void t_kmalloc_kfree_1_8_2(void){	
 	puts("|");
 
 	// data structures	
@@ -1421,7 +1421,7 @@ void t_kmalloc_kfree_1_8_2(){
 	assert(unused_list.head == &n2 && n2.next == &raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_8_3(){	
+void t_kmalloc_kfree_1_8_3(void){	
 	puts("|");
 
 	// data structures	
@@ -1461,7 +1461,7 @@ void t_kmalloc_kfree_1_8_3(){
 	assert(unused_list.head == &raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_8_4(){	
+void t_kmalloc_kfree_1_8_4(void){	
 	puts("|");
 
 	// data structures	
@@ -1498,7 +1498,7 @@ void t_kmalloc_kfree_1_8_4(){
 	assert(unused_list.head == &raw_mem_nodes[0]);
 }
 
-void t_kmalloc_kfree_1_8_5(){	
+void t_kmalloc_kfree_1_8_5(void){	
 	puts("|");
 
 	// data structures	
@@ -1544,7 +1544,7 @@ void t_kmalloc_kfree_1_8_5(){
 	assert(space_to_free == NULL);
 }
 
-void t_kmalloc_kfree_1_8_6(){	
+void t_kmalloc_kfree_1_8_6(void){	
 	puts("|");
 
 	// data structures	
@@ -1593,7 +1593,7 @@ void t_kmalloc_kfree_1_8_6(){
 //***********************************************************************************
 //					TEST DRIVER
 //***********************************************************************************
-void t_kmalloc_kfree_util(){
+void t_kmalloc_kfree_util(void){
 	puts("<kmalloc_kfree_util>");
   t_kmalloc_kfree_1_1_1();
 	t_kmalloc_kfree_1_1_2();

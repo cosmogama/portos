@@ -2,7 +2,7 @@
 
 #include "assert.h"
 
-void test_sanity(){
+void test_sanity(void){
 	assert(TRUE);
 	assert(FALSE);
 	assert( 1 == 1 );

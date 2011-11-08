@@ -6,7 +6,7 @@
 #include "assert.h"
 #include "string.h"
 
-void t_printf_1_0_1(){
+void t_printf_1_0_1(void){
 	puts("|1.0.*|");
 
 	// arg format
@@ -24,7 +24,7 @@ void t_printf_1_0_1(){
 	assert( buff[0] == '1' && buff[1] == '0' && buff[2] == '3' && buff[3] == '\0' );
 }
 
-void t_printf_1_0_2(){
+void t_printf_1_0_2(void){
 	puts("|");
 
 	// arg format
@@ -42,7 +42,7 @@ void t_printf_1_0_2(){
 	assert( buff[0] == '-' && buff[1] == '1' && buff[2] == '0' && buff[3] == '3' && buff[4] == '\0' );
 }
 
-void t_printf_1_0_3(){
+void t_printf_1_0_3(void){
 	puts("|");
 
 	// arg format
@@ -60,7 +60,7 @@ void t_printf_1_0_3(){
 	assert( buff[0] == '-' && buff[1] == '1' && buff[4] == '\0' );
 }
 
-void t_printf_1_1_1(){
+void t_printf_1_1_1(void){
 	puts("|1.1.*|");
 
 	// arg format
@@ -78,7 +78,7 @@ void t_printf_1_1_1(){
 	assert( buff[0] == c && buff[1] == '\0' );
 }
 
-void t_printf_1_1_2(){
+void t_printf_1_1_2(void){
 	puts("|");
 
 	// arg format
@@ -96,7 +96,7 @@ void t_printf_1_1_2(){
 	assert( buff[0] == c && buff[1] == '\0' );
 }
 
-void t_printf_1_1_3(){
+void t_printf_1_1_3(void){
 	puts("|");
 
 	// arg format
@@ -114,7 +114,7 @@ void t_printf_1_1_3(){
 	assert( buff[0] == c && buff[1] == '\0' );
 }
 
-void t_printf_1_2_1(){
+void t_printf_1_2_1(void){
 	puts("|1.2.*|");
 
 	// arg format
@@ -133,7 +133,7 @@ void t_printf_1_2_1(){
 	assert(buff[0]=='0' && buff[1]=='\0');
 }
 
-void t_printf_1_2_2(){
+void t_printf_1_2_2(void){
 	puts("|");
 
 	// arg format
@@ -151,7 +151,7 @@ void t_printf_1_2_2(){
 	assert(buff[0]=='-' && buff[1]=='5' && buff[2]=='4' && buff[3]=='\0');
 }
 
-void t_printf_1_2_3(){
+void t_printf_1_2_3(void){
 	puts("|");
 
 	// arg format
@@ -169,7 +169,7 @@ void t_printf_1_2_3(){
 	assert(buff[0]=='3' && buff[1]=='2' && buff[2]=='7' && buff[3]=='6' && buff[4]=='7' && buff[5]=='\0');
 }
 
-void t_printf_1_3_1(){
+void t_printf_1_3_1(void){
 	puts("|1.3.*|");
 
 	// arg format
@@ -187,7 +187,7 @@ void t_printf_1_3_1(){
 	assert(buff[0]=='1' && buff[1]=='2' && buff[2]=='3' && buff[3]=='4' && buff[4]=='\0');
 }
 
-void t_printf_1_3_2(){
+void t_printf_1_3_2(void){
 	puts("|");
 
 	// arg format
@@ -205,7 +205,7 @@ void t_printf_1_3_2(){
 	assert(buff[0]=='-' && buff[1]=='2' && buff[2]=='3' && buff[3]=='4' && buff[4]=='\0');
 }
 
-void t_printf_1_3_3(){
+void t_printf_1_3_3(void){
 	puts("|");
 
 	// arg format
@@ -224,7 +224,7 @@ void t_printf_1_3_3(){
 		buff[5]=='8' && buff[6]=='3' && buff[7]=='6' && buff[8]=='4' && buff[9]=='7' && buff[10]=='\0');
 }
 
-void t_printf_1_4_1(){
+void t_printf_1_4_1(void){
 	puts("|1.4.*|");
 
 	// arg format
@@ -242,7 +242,7 @@ void t_printf_1_4_1(){
 	assert(buff[0]=='1' && buff[1]=='2' && buff[2]=='3' && buff[3]=='4' && buff[4]=='\0');
 }
 
-void t_printf_1_4_2(){
+void t_printf_1_4_2(void){
 	puts("|");
 
 	// arg format
@@ -260,7 +260,7 @@ void t_printf_1_4_2(){
 	assert(buff[0]=='-' && buff[1]=='2' && buff[2]=='3' && buff[3]=='4' && buff[4]=='\0');
 }
 
-void t_printf_1_4_3(){
+void t_printf_1_4_3(void){
 	puts("|");
 
 	// arg format	
@@ -279,7 +279,7 @@ void t_printf_1_4_3(){
 		buff[5]=='8' && buff[6]=='3' && buff[7]=='6' && buff[8]=='4' && buff[9]=='7' && buff[10]=='\0');
 }
 
-void t_printf_1_5_1(){
+void t_printf_1_5_1(void){
 	puts("|1.5.*|");
 
 	// arg format	
@@ -298,7 +298,7 @@ void t_printf_1_5_1(){
 		buff[5]=='5' && buff[6]=='6' && buff[7]=='7' && buff[8]=='8' && buff[10]=='\0');
 }
 
-void t_printf_1_5_2(){
+void t_printf_1_5_2(void){
 	puts("|");
 
 	// arg format	
@@ -317,7 +317,7 @@ void t_printf_1_5_2(){
 		buff[5]=='5' && buff[6]=='6' && buff[7]=='7' && buff[8]=='8' && buff[10]=='\0');
 }
 
-void t_printf_1_6_1(){
+void t_printf_1_6_1(void){
 	puts("|1.6.*|");
 
 	// arg format	
@@ -342,7 +342,7 @@ void t_printf_1_6_1(){
 	);
 }
 
-void t_printf_1_6_2(){
+void t_printf_1_6_2(void){
 	puts("|");
 
 	// arg format	
@@ -367,7 +367,7 @@ void t_printf_1_6_2(){
 	);
 }
 
-void t_printf_1_7_1(){
+void t_printf_1_7_1(void){
 	puts("|1.7.*|");
 
 	// arg format	
@@ -391,7 +391,7 @@ void t_printf_1_7_1(){
 	);
 }
 
-void t_printf_1_7_2(){
+void t_printf_1_7_2(void){
 	puts("|");
 
 	// arg format	
@@ -415,7 +415,7 @@ void t_printf_1_7_2(){
 	);
 }
 
-void t_printf_1_8_1(){
+void t_printf_1_8_1(void){
 	puts("|1.8.*|");
 
 	// arg format
@@ -433,7 +433,7 @@ void t_printf_1_8_1(){
 	assert( buff[0] == '1' && buff[1] == '0' && buff[2] == '3' && buff[3] == '\0' );
 }
 
-void t_printf_1_8_2(){
+void t_printf_1_8_2(void){
 	puts("|");
 
 	// arg format
@@ -451,7 +451,7 @@ void t_printf_1_8_2(){
 	assert( buff[0] == '2' && buff[1] == '5' && buff[2] == '5' && buff[3] == '\0' );
 }
 
-void t_printf_1_9_1(){
+void t_printf_1_9_1(void){
 	puts("|1.9.*|");
 
 	// arg format
@@ -469,7 +469,7 @@ void t_printf_1_9_1(){
 	assert( buff[0] == '1' && buff[1] == '0' && buff[2] == '3' && buff[3] == '\0' );
 }
 
-void t_printf_1_9_2(){
+void t_printf_1_9_2(void){
 	puts("|");
 
 	// arg format
@@ -487,7 +487,7 @@ void t_printf_1_9_2(){
 	assert( buff[0] == '6' && buff[1] == '5' && buff[2] == '5' && buff[3] == '3' && buff[4] == '5' && buff[5] == '\0' );
 }
 
-void t_printf_1_10_1(){
+void t_printf_1_10_1(void){
 	puts("|1.10.*|");
 
 	// arg format
@@ -505,7 +505,7 @@ void t_printf_1_10_1(){
 	assert( buff[0] == '1' && buff[1] == '0' && buff[2] == '3' && buff[3] == '\0' );
 }
 
-void t_printf_1_10_2(){
+void t_printf_1_10_2(void){
 	puts("|");
 
 	// arg format
@@ -524,7 +524,7 @@ void t_printf_1_10_2(){
 		&& buff[6] == '7' && buff[7] == '2' && buff[8] == '9' && buff[9] == '5' && buff[10] == '\0' );
 }
 
-void t_printf_1_11_1(){
+void t_printf_1_11_1(void){
 	puts("|1.11.*|");
 
 	// arg format
@@ -542,7 +542,7 @@ void t_printf_1_11_1(){
 	assert( buff[0] == '1' && buff[1] == '0' && buff[2] == '3' && buff[3] == '\0' );
 }
 
-void t_printf_1_11_2(){
+void t_printf_1_11_2(void){
 	puts("|");
 
 	// arg format
@@ -561,7 +561,7 @@ void t_printf_1_11_2(){
 		&& buff[6] == '7' && buff[7] == '2' && buff[8] == '9' && buff[9] == '5' && buff[10] == '\0' );
 }
 
-void t_printf_1_12_1(){
+void t_printf_1_12_1(void){
 	puts("|1.12.*|");
 
 	// arg format
@@ -580,7 +580,7 @@ void t_printf_1_12_1(){
 		&& buff[6] == '7' && buff[7] == '2' && buff[8] == '9' && buff[9] == '5' && buff[10] == '\0' );
 }
 
-void t_printf_1_12_2(){
+void t_printf_1_12_2(void){
 	puts("|");
 
 	// arg format
@@ -599,7 +599,7 @@ void t_printf_1_12_2(){
 		&& buff[6] == '7' && buff[7] == '2' && buff[8] == '9' && buff[9] == '6' && buff[10] == '\0' );
 }
 
-void t_printf_1_13_1(){
+void t_printf_1_13_1(void){
 	puts("|1.13.*|");
 
 	// arg format
@@ -620,7 +620,7 @@ void t_printf_1_13_1(){
 		buff[7] == 'A' && buff[8] == '1' && buff[9] == '0' && buff[10] == '\0'); 
 }
 
-void t_printf_1_13_2(){
+void t_printf_1_13_2(void){
 	puts("|");
 
 	// arg format
@@ -640,7 +640,7 @@ void t_printf_1_13_2(){
 		&& buff[6] == 'F' && buff[7] == 'F' && buff[8] == 'F' && buff[9] == 'F' && buff[10] == '\0' );
 }
 
-void t_printf_1_14_1(){
+void t_printf_1_14_1(void){
 	puts("|1.14.*|");
 
 	// arg format
@@ -650,7 +650,7 @@ void t_printf_1_14_1(){
 	char buff[20];
 	char * bptr = &buff[0];
 	// arg to process
-	char * str = NULL;
+	const char * str = NULL;
 	// assemble varg
 	int * varg = (int *)&str;
 
@@ -659,7 +659,7 @@ void t_printf_1_14_1(){
 		&& buff[6] == '\0' );
 }
 
-void t_printf_1_14_2(){
+void t_printf_1_14_2(void){
 	puts("|");
 
 	// arg format
@@ -669,7 +669,7 @@ void t_printf_1_14_2(){
 	char buff[20];
 	char * bptr = &buff[0];
 	// arg to process
-	char * str = "";
+	const char * str = "";
 	// assemble varg
 	int * varg = (int *)&str;
 
@@ -677,7 +677,7 @@ void t_printf_1_14_2(){
 	assert( buff[0] == '\0' );
 }
 
-void t_printf_1_14_3(){
+void t_printf_1_14_3(void){
 	puts("|");
 
 	// arg format
@@ -687,7 +687,7 @@ void t_printf_1_14_3(){
 	char buff[20];
 	char * bptr = &buff[0];
 	// arg to process
-	char * str = "I'm a str.";
+	const char * str = "I'm a str.";
 	// assemble varg
 	int * varg = (int *)&str;
 
@@ -696,7 +696,7 @@ void t_printf_1_14_3(){
 		&& buff[6] == 's' && buff[7] == 't' && buff[8] == 'r' && buff[9] == '.' && buff[10] == '\0' );
 }
 
-void t_printf_1_14_4(){
+void t_printf_1_14_4(void){
 	puts("|");
 
 	// arg format
@@ -706,7 +706,7 @@ void t_printf_1_14_4(){
 	char buff[20];
 	char * bptr = &buff[0];
 	// arg to process
-	char * str = "!@#$%^&*<>";
+	const char * str = "!@#$%^&*<>";
 	// assemble varg
 	int * varg = (int *)&str;
 
@@ -715,7 +715,7 @@ void t_printf_1_14_4(){
 		&& buff[6] == '&' && buff[7] == '*' && buff[8] == '<' && buff[9] == '>' && buff[10] == '\0' );
 }
 
-void t_print_arg(){
+void t_print_arg(void){
 	puts("<print_arg>");
 	t_printf_1_0_1();
 	t_printf_1_0_2();

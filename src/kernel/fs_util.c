@@ -3,7 +3,6 @@
 #include "fs_util.h"
 #include "mem_util.h"
 #include "fs_data.h"
-#include "list.h"
 #include "types.h"
 #include "kmalloc.h"
 
@@ -58,7 +57,7 @@ int kfopen_internal(const char * filepath , uint32 * desc , mem_list * allocated
 	return 0;
 }
 
-BOOL file_exists(){
+BOOL file_exists(void){
 	return TRUE;
 }
 

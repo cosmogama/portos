@@ -1,7 +1,7 @@
-// ;;; this file just contains the isr stubs that are installed from 
-// ;;; interrupts.c. The stubs just push values, call the appropriate
-// ;;; function which is defined in interrupts.c, pop values and
-// ;;; execute an iret
+// this file just contains the isr stubs that are installed from 
+// interrupts.c. The stubs just push values, call the appropriate
+// function which is defined in interrupts.c, pop values and
+// execute an iret
 
 .globl handle_interrupt
 .globl isr_stub

@@ -285,7 +285,7 @@ char * uitoh( char * dest , uint32 src ){
 	return dest + 10;
 }
 
-void hbtoa( BYTE_HEX * dest , uint8 src ){
+void hbtoa( BYTE_HEX * dest , UBYTE src ){
 	if( ( src >> 4 ) >= 0xA )
 		dest->hi = ( src >> 4 ) + 55;
 	else
