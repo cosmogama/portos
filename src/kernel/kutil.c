@@ -1,7 +1,7 @@
 #include "kutil.h"
 #include "types.h"
 
-#define asm_halt_cpu() asm volatile("hlt")
+#define asm_halt_cpu() __asm__("hlt")
 
 BOOL wait_for_user_input_on_halt = TRUE;
 
@@ -20,6 +20,7 @@ sleep( unsigned long milliseconds ){
 
 }
 
+// TODO: 
 void wait_for_user_input(void){
 	sleep(3000);
 }
