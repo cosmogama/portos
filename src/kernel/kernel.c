@@ -22,6 +22,7 @@
 #include "fs.h"
 #include "monitor.h"
 #include "kutil.h"
+#include "IDE.h"
 
 // ********** CONSTANTS *******************************
 
@@ -31,7 +32,6 @@
 
 // kernel space initialize functions
 void initializeSystem(void);
-void shutdownSystem(void);
 
 // user space initialize functions
 void setupUserSpace(void);
@@ -79,18 +79,15 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
 		#endif
 
 		// initialize filesystem
+		ide_initialize(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
+		// ide_detect(0,0,0,0,0,0);
 		init_fs();
 
 		// initialize user environment
 		setupUserSpace();
 	
 		// shutdown system
-		shutdownSystem();
-}
-
-void
-shutdownSystem(void){
-	asm( "hlt" );
+		halt_cpu();
 }
 
 void

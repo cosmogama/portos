@@ -32,13 +32,13 @@ interrupt_t interrupt_handlers[MAX_INTERRUPTS];
 // **************************************************
 
 void handle_interrupt(void){
-	outportb(0x20,0x20);
+	outb(0x20,0x20);
 }
 
 void handle_interrupt_kbd(void){
 
 	// receive key press from PIC
-	unsigned char scancode = inportb(0x60);
+	unsigned char scancode = inb(0x60);
 
 	// interpret key press
 	KEY key;
@@ -48,7 +48,7 @@ void handle_interrupt_kbd(void){
 		puts( "invalid key press or error reading key press\0" );
 		putb( scancode );
 		// tell PIC we are done receiving key press
-		outportb(0x20,0x20);
+		outb(0x20,0x20);
 		return;
 	}
 	
@@ -75,7 +75,7 @@ void handle_interrupt_kbd(void){
 	}
 	
 	// tell PIC we are done receiving key press
-	outportb(0x20,0x20);
+	outb(0x20,0x20);
 }
 
 // **************************************************
