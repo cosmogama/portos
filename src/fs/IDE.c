@@ -352,7 +352,8 @@ uint32 BAR4) {
          // (VIII) String indicates model of device (like Western Digital HDD and SONY DVD-RW...):
          for(k = 0; k < 40; k += 2) {
             ide_devices[count].Model[k] = ide_buf[ATA_IDENT_MODEL + k + 1];
-            ide_devices[count].Model[k + 1] = ide_buf[ATA_IDENT_MODEL + k];}
+            ide_devices[count].Model[k + 1] = ide_buf[ATA_IDENT_MODEL + k];
+				 }
          ide_devices[count].Model[40] = 0; // Terminate String.
  
          count++;

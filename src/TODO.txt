@@ -1,4 +1,3 @@
 load selectors into registers
 specify pertinent descriptors for interrupts
 IRQ1 which interrupt is this?  map it.
-load gdt correctly .. see tutorial

@@ -20,6 +20,9 @@ fi
 
 echo "assemble loader success."
 
+## generate Makefile
+perl makemake.pl
+
 ## compile kernel
 make
 if [ $? != "0" ]; then
@@ -108,7 +111,6 @@ pad2_size=$(stat -c%s "pad2")
 echo "pad2 size=$pad2_size"
 
 ## build kernel flat binary
-rm floppy.img
 cat stage1 stage2 pad1 kernel.bin pad2 > floppy.img
 
 ## FLOPPY IMAGE SIZE

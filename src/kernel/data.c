@@ -1,5 +1,4 @@
 #include "data.h"
-#include "monitor.h"
 
 /*
 * SIGNED/UNSIGNED DATA TYPES - max # chars needed for string representation (incl null term)

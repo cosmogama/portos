@@ -5,9 +5,14 @@
 *
 ***/ 
 
-#define RUN_TESTS false
+// #define RUN_TESTS
 
 // ********** INCLUDES ********************************
+
+#ifdef RUN_TESTS
+	#include "tests.h"
+#endif
+
 #include "message_printer.h"
 #include "types.h"
 #include "gdt.h"
@@ -17,7 +22,6 @@
 #include "kmalloc_data.h"
 #include "process.h"
 #include "thread.h"
-#include <tests.h>
 #include "printf.h"
 #include "fs.h"
 #include "monitor.h"
@@ -31,15 +35,15 @@
 // ********** PROTOTYPES *****************************
 
 // kernel space initialize functions
-void initializeSystem(void);
+void initialize_system(void);
 
 // user space initialize functions
-void setupUserSpace(void);
-void setupFileSystem(void);
-void startScheduler(void);
-void startIdleThread(void);
-void startServices(void);
-void startShell(void);
+void setup_user_space(void);
+void setup_file_system(void);
+void start_scheduler(void);
+void start_idle_thread(void);
+void start_services(void);
+void start_shell(void);
 
 // ********** FUNCTIONS ******************************
 
@@ -73,54 +77,57 @@ void kmain( unsigned long mbd_addr , unsigned int magic )
 		init_main_mem( mbd_addr );
 		// mbd_addr = 0;
 
+		// initialize IDE
+		ide_initialize(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
+
 		// run internal tests
-		#if RUN_TESTS == true
-		run_tests();
+		#ifdef RUN_TESTS
+			run_tests();
 		#endif
 
 		// initialize filesystem
-		ide_initialize(0x1F0, 0x3F4, 0x170, 0x374, 0x000);
-		// ide_detect(0,0,0,0,0,0);
 		init_fs();
 
+// 		spawn_thread();
+
 		// initialize user environment
-		setupUserSpace();
+		setup_user_space();
 	
 		// shutdown system
 		halt_cpu();
 }
 
 void
-setupUserSpace(void){	
-	setupFileSystem();
-	startIdleThread();
-	startScheduler();
-	startServices();
-	startShell();
+setup_user_space(void){	
+	setup_file_system();
+	start_idle_thread();
+	start_scheduler();
+	start_services();
+	start_shell();
 }
 
 void
-setupFileSystem(void){
+setup_file_system(void){
 	
 }
 
 void
-startIdleThread(void){
+start_idle_thread(void){
 
 }
 
 void
-startScheduler(void){
+start_scheduler(void){
 
 }
 
 void
-startServices(void){
+start_services(void){
 
 }
 
 void
-startShell(void){
+start_shell(void){
 
 	puts( "$: "  );
 
