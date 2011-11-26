@@ -1,7 +1,6 @@
 #include "printf.h"
 #include "monitor.h"
 #include "types.h"
-#include "message_printer.h"
 #include "data.h"
 #include "string.h"
 
@@ -26,7 +25,7 @@ int print( char ** out , int * varg ){
 	const char * format = (char *)(*varg++);
 
 	if( format == NULL ){
-		warning_msg("print format is null");
+		puts("print format is null");
 		return 0;
 	}
 
@@ -106,7 +105,7 @@ char * print_arg( char ** out , BOOL is_unsigned , char format_specifier , int *
 		out_new = strcpy( out , (char *)(*varg++) );
 	}
 	else{
-		error_msg("ERROR: unrecognized format specifier=%s\n",format_specifier);
+		printf("ERROR: unrecognized format specifier=%s\n",format_specifier);
 	}
 
 	//

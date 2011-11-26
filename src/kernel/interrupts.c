@@ -1,4 +1,4 @@
-#include "interrupts.h"
+#include "interrupts_private.h"
 #include "keyboard.h"
 #include "idt.h"
 #include "PIC.h"

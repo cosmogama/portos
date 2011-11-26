@@ -1,5 +1,3 @@
-#if RUN_TESTS == true
-
 #include "kmalloc.h"
 #include "mem_util.h"
 #include "assert.h"
@@ -1641,4 +1639,3 @@ void t_kmalloc_kfree_util(void){
 	t_kmalloc_kfree_1_8_6();
 }
 
-#endif

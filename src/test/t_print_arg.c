@@ -1,5 +1,3 @@
-#if RUN_TESTS == true
-
 #include "message_printer.h"
 #include "printf.h"
 #include "monitor.h"
@@ -756,4 +754,3 @@ void t_print_arg(void){
 	t_printf_1_14_4();
 }
 
-#endif

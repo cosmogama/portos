@@ -16,7 +16,24 @@ uint8 ide_print_error(uint32 drive, uint8 err);
 
 void ide_read_sectors(uint8 drive, uint8 numsects, uint32 lba, uint16 es, uint32 edi);
 uint8 ide_atapi_read(uint8 drive, uint32 lba, uint8 numsects,uint16 selector, uint32 edi);
+
+/*
+ *     FUNCTION: ide_write_sectors
+ *      PURPOSE: to write data to a variable amount of sectors on disk
+ *   PARAMETERS:
+ *        drive=drive is the drive number which can be from 0 to 3.
+ *     numsects=the number of sectors to be read/written, it is a char, as reading more than 
+ *              256 sector immediately may incur performance issues. If numsects is 0, the ATA 
+ *               controller will know that we want 256 sectors.
+ *          lba=(LBA48): Accessing a sector by its 48-bit LBA address. As we use integers in GCC, 
+ *              our maximum address is 32-bit long, which allows accessing a drive with a size of up to 2TB.
+ *           es=selector is the segment selector to read from, or write to.
+ *          edi=edi is the offset in that segment.
+ *       RETURN: none
+ * SIDE EFFECTS:
+ */
 void ide_write_sectors(uint8 drive, uint8 numsects, uint32 lba, uint16 es, uint32 edi);
+
 uint8 ide_ata_access(uint8 direction, uint8 drive, uint32 lba, uint8 numsects, uint16 selector, uint32 edi);
 
 #endif

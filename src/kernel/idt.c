@@ -1,10 +1,11 @@
-#include "idt.h"
+#include "interrupts_private.h"
 #include "gdt.h"
 
 ///////////////  IDT stuff
 
+const int max_interrupts = 256;
 IDTR idtr;
-IDT_entry idt[MAX_INTERRUPTS];
+IDT_entry idt[256];
 static void idt_set_gate(int, uint16, uint8, uint32);
 
 /* defined in idt-asm.s */
@@ -16,14 +17,14 @@ extern void isr_stub_kbd(void);
 void init_IDT(void)  {
 
 	int i = 0;
-	for( ; i<MAX_INTERRUPTS; i++ ){
+	for( ; i<max_interrupts; i++ ){
 		if( i == KBD_IRQ )
  			idt_set_gate(i, KERNEL_CS, INTERRUPT_FLAGS, (uint32)isr_stub_kbd);
 		else
 			idt_set_gate(i, KERNEL_CS, INTERRUPT_FLAGS, (uint32)isr_stub);
   }
 
-  idtr.limit = sizeof(IDT_entry) * MAX_INTERRUPTS - 1;
+  idtr.limit = sizeof(IDT_entry) * max_interrupts - 1;
   idtr.offset = (uint32)(&idt);
 
 	load_IDT(((uint32)&idtr));

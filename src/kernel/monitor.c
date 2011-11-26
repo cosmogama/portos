@@ -1,7 +1,6 @@
 #include "IO.h"
 #include "data.h"
 #include "monitor.h"
-#include "message_printer.h"
 
 #define CX_MAX 80
 #define CY_MAX 250
