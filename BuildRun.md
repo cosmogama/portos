@@ -1,0 +1,9 @@
+# Page Description #
+Describes the build and run processes.  Building the kernel using the cross compiler and running bochs with the resulting floppy image.
+
+# Build #
+
+Building the kernel is outlined [here](http://wiki.osdev.org/Bare_bones).  You can build by running the build script in the src directory.  The build script will create a kernel.bin, the compiled kernel binary, and floppy.img, the binary file which contains the kernel, loader, and GRUB needed for bochs to load the kernel into memory.
+
+# Run #
+Execute the run script in the src directory.  This will start up Bochs and tell it where the floppy image is that contains the bootup image.
